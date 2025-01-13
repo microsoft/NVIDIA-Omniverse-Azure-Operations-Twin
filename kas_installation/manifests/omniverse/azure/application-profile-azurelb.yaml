@@ -1,0 +1,54 @@
+apiVersion: omniverse.nvidia.com/v1
+kind: ApplicationProfile
+metadata:
+  name: app-profile-usd-viewer-msft
+spec:
+  name: AzureLB example profile
+  description: Default profile - uses an AzureLB per stream
+  supportedApplications:
+    - name: "usd-viewer-msft"
+      versions:
+        - '*'
+  chartMappings:
+    container: streamingKit.image.repository
+    container_version: streamingKit.image.tag
+    name: streamingKit.name
+  chartValues:
+    global:
+      imagePullSecrets:
+        - name: regcred
+    streamingKit:
+      image:
+        repository: <Container_Registry_path>
+        pullPolicy: Always
+        tag: '<tag>'
+      envoy:
+        tls:
+          enabled: true
+          secretRef: stream-tls-secret
+      sessionId: session_id
+      service:
+        signalingPort: 31000
+        mediaPort: 31001
+        healthPort: 31002
+        annotations:
+          # NLB configuration
+          service.beta.kubernetes.io/azure-load-balancer-internal: "false"
+          # Security stuff - may need to specify this in `loadBalancerSourceRanges`
+          # service.beta.kubernetes.io/load-balancer-source-ranges: 192.0.2.0/24, 198.51.100.0/24, 203.0.113.0/24
+          # Health check
+          service.beta.kubernetes.io/port_8080_health-probe_protocol: HTTP
+          service.beta.kubernetes.io/port_8080_health-probe_port: "8080"
+          service.beta.kubernetes.io/port_8080_health-probe_request-path: /health
+        type: LoadBalancer
+      name: kit-app
+      resources:
+        limits:
+          cpu: "3"
+          memory: 20Gi
+          nvidia.com/gpu: "1"
+        requests:
+          nvidia.com/gpu: "1"
+      env:
+        - name: USD_PATH
+          value: "/app/samples/stage01.usd"

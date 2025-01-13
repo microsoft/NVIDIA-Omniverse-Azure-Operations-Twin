@@ -1,0 +1,45 @@
+---
+
+global:
+  # -- Global image pull secrets used within the services.
+  imagePullSecrets:
+    - name: regcred
+
+nlb:
+  ingress:
+    enabled: False
+
+  image:
+    repository: "nvcr.io/nvidia/omniverse/kit-appstreaming-aws-nlb"
+    tag: 1.8.0
+
+  serviceAccount:
+    enabled: true
+    name: "<replace with service account name"
+    roleArn: "<replace with role arn>"
+
+  serviceConfig:
+    root_path: "/nlb"
+
+    # New service configuration settings
+    resource:
+      dns:
+        alias:
+          tag:
+            key: "<Replace with key where route 53 FQDN will be stored, for example: Route53Alias"
+      lookup:
+        tag:
+          key: "<Replace with tag key, for example: OmniverseStreamingStack>"
+          value: "<Replace with tag value, for example: cluster-a"
+    stream:
+      limit: 1
+    
+    ports:
+      tcp:
+        port_start: 443
+        tls:
+          enabled: True
+          ssl_policy: "ELBSecurityPolicy-TLS13-1-2-2021-06"
+          certificate_arn: "<replace with wildcard certificate arn>"
+      udp:
+        port_start: 80

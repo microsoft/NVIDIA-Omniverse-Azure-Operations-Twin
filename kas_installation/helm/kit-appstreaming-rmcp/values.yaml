@@ -1,0 +1,32 @@
+global:
+  imagePullSecrets:
+   - name: regcred
+
+rmcp:
+  serviceConfig:
+    root_path: /api/v1
+    prefix_url: /rmcp
+    
+    # -- Flux release deployment timeout
+    helm_flux_release_timeout: "5m"
+
+  image:
+    repository: "nvcr.io/nvidia/omniverse/kit-appstreaming-rmcp"
+    pullPolicy: Always
+    tag: 1.8.0
+
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+          - matchExpressions:
+              - key: agentpool
+                operator: In
+                values:
+                  - agentpoolds
+
+  monitoring:
+    # -- Enables the creation of ServiceMonitor resource.
+    enabled: false
+    # -- Prometheus namespace.
+    prometheusNamespace: "omni-streaming"

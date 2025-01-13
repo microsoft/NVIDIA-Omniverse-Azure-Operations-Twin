@@ -1,0 +1,25 @@
+args:
+  - /run.sh
+  - -m 10240m
+  - -I 1024m
+resources:
+  limits:
+    memory: 20Gi
+    cpu: 4
+  requests:
+    memory: 10Gi
+    cpu: 2
+extraEvnVars:
+  - name: MEMCACHED_MAX_CONNECTIONS
+    value: 2000
+  - name: MEMCACHED_THREADS
+    value: 8
+# This assumes that within the Kubernetes cluster their is a nodegroup called `cache` and a node has that nodegroup attached to it.
+# The node selected needs to be accessible for client traffic.
+nodeSelector:
+  agentpool: cachepool
+replicaCount: 1
+service:
+  clusterIP: None
+architecture: high-availability
+

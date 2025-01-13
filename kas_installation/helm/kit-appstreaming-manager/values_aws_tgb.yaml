@@ -1,0 +1,51 @@
+# This values file will configure the streaming session service to use the AWS CSP Backend class. This will require the aws-nlb service to be deployed
+# This set up will reuse existing NLBs, targetgroups and listeners and binds streams to them.
+# In AWS, this significantly reduces the startup time of a stream with regards to the AWS infrastructure configuration
+
+global:
+
+  ingress:
+    annotations:
+      # These settings currently assume an AWS load balancer is used in conjunction with an NGINX ingress.
+      alb.ingress.kubernetes.io/scheme: internet-facing
+      alb.ingress.kubernetes.io/target-type: ip
+      alb.ingress.kubernetes.io/healthcheck-path: /status
+      #alb.ingress.kubernetes.io/inbound-cidrs: "216.228.125.128/30,216.228.127.128/30,216.228.112.20/30,216.228.112.24/30,216.228.125.131/32,206.223.160.26/32"
+      alb.ingress.kubernetes.io/inbound-cidrs: "<UPDATE or REMOVE depending on security rules and servers needing access>"
+      # Change this based on the deployment environment and ingress.
+      kubernetes.io/ingress.class: "alb"
+
+  # Assuming a registry secret is available within the namespace called regred
+  imagePullSecrets:
+   - name: regcred
+
+streaming:
+  ingress:
+    path: "/"
+    pathType: Prefix
+    enabled: true
+
+  serviceConfig:
+    root_path: ""
+    prefix_url: "/streaming"
+
+    session_namespace: "omni-streaming"
+    session_capacity: 3
+    backend_rmcp_url: "http://rmcp/rmcp"
+    backend_applications_resolver_url: "http://resolver"
+
+    backend_csp_cls: "nv.svc.streaming._csp.AWS"
+    backend_csp_args:
+      nlb_mgmt_svc: http://nlb/nlb
+      enable_wss: true
+
+  image:
+    repository: "nvcr.io/nvidia/omniverse/kit-appstreaming-manager"
+    pullPolicy: Always
+    tag: 1.8.0
+
+  monitoring:
+    # -- Enables the creation of ServiceMonitor resource.
+    enabled: true
+    # -- Prometheus namespace.
+    prometheusNamespace: "omni-streaming"

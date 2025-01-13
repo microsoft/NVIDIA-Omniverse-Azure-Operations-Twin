@@ -1,0 +1,33 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "location": {
+      "value": "eastus2"
+    },
+    "resourceGroupName": {
+      "value": "rg-omnistreaming"
+    },
+    "virtualNetworkName": {
+      "value": "vnet-omnistreaming"
+    },
+    "vnetAddressPrefix": {
+      "value": "10.2.0.0/16"
+    },
+    "aksSubnetAddressPrefix": {
+      "value": "10.2.0.0/24"
+    },
+    "wafSubnetAddressPrefix": {
+      "value": "10.2.1.0/24"
+    },
+    "apimSubnetAddressPrefix": {
+      "value": "10.2.2.0/24"
+    },
+    "nsgNameInternal": {
+      "value": "nsg-omnistreaming-internal"
+    },
+    "nsgNameExternal": {
+      "value": "nsg-omnistreaming-external"
+    }
+  }
+}

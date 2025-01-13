@@ -1,0 +1,2 @@
+GET https://appgw.contoso-omniverse.com/applications/cfg/apps/usd-viewer/versions
+accept: application/json

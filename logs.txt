@@ -1,0 +1,1535 @@
+{"Timestamp": 1733866983873251917, "SeverityNumber": 13, "SeverityText": "WARNING", "InstrumentationScope": "", "Body": "Unable to autoconfigure tracing, ensure nv.svc.core is installed with 'tracing' extra.", "Attributes": {"app.clock": 2.17858386, "timestamp": "2024-12-10T21:43:03.873251917Z"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733866983873350090, "SeverityNumber": 13, "SeverityText": "WARNING", "InstrumentationScope": "", "Body": "on_startup() is no longer required to be called. Method will be deprecated on version 1.0.0", "Attributes": {"app.clock": 2.178670168, "timestamp": "2024-12-10T21:43:03.873350090Z"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733866984048990488, "SeverityNumber": 13, "SeverityText": "WARNING", "InstrumentationScope": "", "Body": "Overriding of current MeterProvider is not allowed", "Attributes": {"app.clock": 2.354314327, "timestamp": "2024-12-10T21:43:04.048990488Z"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733866984621056990, "SeverityNumber": 9, "SeverityText": "INFO", "InstrumentationScope": "", "Body": "Server will attempt to start on http://0.0.0.0:8080 (API Spec available at /streaming/docs)", "Attributes": {"app.clock": 2.926380873, "timestamp": "2024-12-10T21:43:04.621056990Z"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+/usr/local/lib/python3.12/site-packages/fastapi/openapi/utils.py:207: UserWarning: Duplicate Operation ID metrics_metrics_get for function metrics at /usr/local/lib/python3.12/site-packages/nv/svc/facilities/monitoring/metrics/middleware.py
+  warnings.warn(message, stacklevel=1)
+{"Timestamp": 1733869334186527654, "SeverityNumber": 17, "SeverityText": "ERROR", "InstrumentationScope": "", "Body": "Failed request to http://rmcp/api/v1/rmcp/releases: 404, {\"detail\":\"Not Found\"}", "Attributes": {"app.clock": 2352.491870165, "timestamp": "2024-12-10T22:22:14.186527654Z", "correlation_id": "3369ae23027247ba8ce5db2f5dc66c09"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+ERROR:    Exception in ASGI application
+  + Exception Group Traceback (most recent call last):
+  |   File "/usr/local/lib/python3.12/site-packages/starlette/_utils.py", line 87, in collapse_excgroups
+  |     yield
+  |   File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 190, in __call__
+  |     async with anyio.create_task_group() as task_group:
+  |                ^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/usr/local/lib/python3.12/site-packages/anyio/_backends/_asyncio.py", line 736, in __aexit__
+  |     raise BaseExceptionGroup(
+  | ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+  +-+---------------- 1 ----------------
+    | Traceback (most recent call last):
+    |   File "/usr/local/lib/python3.12/site-packages/uvicorn/protocols/http/httptools_impl.py", line 419, in run_asgi
+    |     result = await app(  # type: ignore[func-returns-value]
+    |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/site-packages/uvicorn/middleware/proxy_headers.py", line 84, in __call__
+    |     return await self.app(scope, receive, send)
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/site-packages/fastapi/applications.py", line 1054, in __call__
+    |     await super().__call__(scope, receive, send)
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/applications.py", line 123, in __call__
+    |     await self.middleware_stack(scope, receive, send)
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/middleware/errors.py", line 186, in __call__
+    |     raise exc
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/middleware/errors.py", line 164, in __call__
+    |     await self.app(scope, receive, _send)
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/middleware/cors.py", line 85, in __call__
+    |     await self.app(scope, receive, send)
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 189, in __call__
+    |     with collapse_excgroups():
+    |          ^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/contextlib.py", line 158, in __exit__
+    |     self.gen.throw(value)
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/_utils.py", line 93, in collapse_excgroups
+    |     raise exc
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 191, in __call__
+    |     response = await self.dispatch_func(request, call_next)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/site-packages/nv/svc/facilities/monitoring/metrics/middleware.py", line 141, in dispatch
+    |     raise exc
+    |   File "/usr/local/lib/python3.12/site-packages/nv/svc/facilities/monitoring/metrics/middleware.py", line 130, in dispatch
+    |     response = await call_next(request)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 165, in call_next
+    |     raise app_exc
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 151, in coro
+    |     await self.app(scope, receive_or_disconnect, send_no_error)
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 189, in __call__
+    |     with collapse_excgroups():
+    |          ^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/contextlib.py", line 158, in __exit__
+    |     self.gen.throw(value)
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/_utils.py", line 93, in collapse_excgroups
+    |     raise exc
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 191, in __call__
+    |     response = await self.dispatch_func(request, call_next)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/site-packages/nv/svc/facilities/monitoring/metrics/middleware.py", line 141, in dispatch
+    |     raise exc
+    |   File "/usr/local/lib/python3.12/site-packages/nv/svc/facilities/monitoring/metrics/middleware.py", line 130, in dispatch
+    |     response = await call_next(request)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 165, in call_next
+    |     raise app_exc
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 151, in coro
+    |     await self.app(scope, receive_or_disconnect, send_no_error)
+    |   File "/usr/local/lib/python3.12/site-packages/asgi_correlation_id/middleware.py", line 90, in __call__
+    |     await self.app(scope, receive, handle_outgoing_request)
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 65, in __call__
+    |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    |     raise exc
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    |     await app(scope, receive, sender)
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/routing.py", line 756, in __call__
+    |     await self.middleware_stack(scope, receive, send)
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/routing.py", line 776, in app
+    |     await route.handle(scope, receive, send)
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/routing.py", line 297, in handle
+    |     await self.app(scope, receive, send)
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/routing.py", line 77, in app
+    |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    |     raise exc
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    |     await app(scope, receive, sender)
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/routing.py", line 72, in app
+    |     response = await func(request)
+    |                ^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/site-packages/nv/svc/core/auth/routers/authorized_service_router.py", line 152, in custom_route_handler
+    |     return await original_route_handler(request=authorized_request)
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/site-packages/fastapi/routing.py", line 278, in app
+    |     raw_response = await run_endpoint_function(
+    |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/site-packages/fastapi/routing.py", line 191, in run_endpoint_function
+    |     return await dependant.call(**values)
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/site-packages/nv/svc/streaming/service/router.py", line 55, in list_streams
+    |     res = await stream_manager.list_streams()
+    |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/site-packages/nv/svc/streaming/_manager.py", line 271, in list_streams
+    |     releases = await self._make_request('GET', f"{self._rmcp_url}/releases", params=params)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/site-packages/nv/svc/streaming/_manager.py", line 128, in _make_request
+    |     raise _APIError(status_code=resp.status, details=error_msg)
+    | nv.svc.streaming._manager._APIError: Error 404: Failed request to http://rmcp/api/v1/rmcp/releases: 404, {"detail":"Not Found"}
+    +------------------------------------
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/site-packages/uvicorn/protocols/http/httptools_impl.py", line 419, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/uvicorn/middleware/proxy_headers.py", line 84, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/fastapi/applications.py", line 1054, in __call__
+    await super().__call__(scope, receive, send)
+  File "/usr/local/lib/python3.12/site-packages/starlette/applications.py", line 123, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/errors.py", line 186, in __call__
+    raise exc
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/cors.py", line 85, in __call__
+    await self.app(scope, receive, send)
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 189, in __call__
+    with collapse_excgroups():
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "/usr/local/lib/python3.12/site-packages/starlette/_utils.py", line 93, in collapse_excgroups
+    raise exc
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 191, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/nv/svc/facilities/monitoring/metrics/middleware.py", line 141, in dispatch
+    raise exc
+  File "/usr/local/lib/python3.12/site-packages/nv/svc/facilities/monitoring/metrics/middleware.py", line 130, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 165, in call_next
+    raise app_exc
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 189, in __call__
+    with collapse_excgroups():
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "/usr/local/lib/python3.12/site-packages/starlette/_utils.py", line 93, in collapse_excgroups
+    raise exc
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 191, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/nv/svc/facilities/monitoring/metrics/middleware.py", line 141, in dispatch
+    raise exc
+  File "/usr/local/lib/python3.12/site-packages/nv/svc/facilities/monitoring/metrics/middleware.py", line 130, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 165, in call_next
+    raise app_exc
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/usr/local/lib/python3.12/site-packages/asgi_correlation_id/middleware.py", line 90, in __call__
+    await self.app(scope, receive, handle_outgoing_request)
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 65, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/usr/local/lib/python3.12/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "/usr/local/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "/usr/local/lib/python3.12/site-packages/starlette/routing.py", line 756, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/usr/local/lib/python3.12/site-packages/starlette/routing.py", line 776, in app
+    await route.handle(scope, receive, send)
+  File "/usr/local/lib/python3.12/site-packages/starlette/routing.py", line 297, in handle
+    await self.app(scope, receive, send)
+  File "/usr/local/lib/python3.12/site-packages/starlette/routing.py", line 77, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/usr/local/lib/python3.12/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "/usr/local/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "/usr/local/lib/python3.12/site-packages/starlette/routing.py", line 72, in app
+    response = await func(request)
+               ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/nv/svc/core/auth/routers/authorized_service_router.py", line 152, in custom_route_handler
+    return await original_route_handler(request=authorized_request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/fastapi/routing.py", line 278, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/fastapi/routing.py", line 191, in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/nv/svc/streaming/service/router.py", line 55, in list_streams
+    res = await stream_manager.list_streams()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/nv/svc/streaming/_manager.py", line 271, in list_streams
+    releases = await self._make_request('GET', f"{self._rmcp_url}/releases", params=params)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/nv/svc/streaming/_manager.py", line 128, in _make_request
+    raise _APIError(status_code=resp.status, details=error_msg)
+nv.svc.streaming._manager._APIError: Error 404: Failed request to http://rmcp/api/v1/rmcp/releases: 404, {"detail":"Not Found"}
+{"Timestamp": 1733869453055898529, "SeverityNumber": 17, "SeverityText": "ERROR", "InstrumentationScope": "", "Body": "Failed request to http://rmcp/api/v1/rmcp/releases: 404, {\"detail\":\"Not Found\"}", "Attributes": {"app.clock": 2471.361226797, "timestamp": "2024-12-10T22:24:13.055898529Z", "correlation_id": "8ec8975b58b943b29dac7aabc4907243"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+ERROR:    Exception in ASGI application
+  + Exception Group Traceback (most recent call last):
+  |   File "/usr/local/lib/python3.12/site-packages/starlette/_utils.py", line 87, in collapse_excgroups
+  |     yield
+  |   File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 190, in __call__
+  |     async with anyio.create_task_group() as task_group:
+  |                ^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/usr/local/lib/python3.12/site-packages/anyio/_backends/_asyncio.py", line 736, in __aexit__
+  |     raise BaseExceptionGroup(
+  | ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+  +-+---------------- 1 ----------------
+    | Traceback (most recent call last):
+    |   File "/usr/local/lib/python3.12/site-packages/uvicorn/protocols/http/httptools_impl.py", line 419, in run_asgi
+    |     result = await app(  # type: ignore[func-returns-value]
+    |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/site-packages/uvicorn/middleware/proxy_headers.py", line 84, in __call__
+    |     return await self.app(scope, receive, send)
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/site-packages/fastapi/applications.py", line 1054, in __call__
+    |     await super().__call__(scope, receive, send)
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/applications.py", line 123, in __call__
+    |     await self.middleware_stack(scope, receive, send)
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/middleware/errors.py", line 186, in __call__
+    |     raise exc
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/middleware/errors.py", line 164, in __call__
+    |     await self.app(scope, receive, _send)
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/middleware/cors.py", line 85, in __call__
+    |     await self.app(scope, receive, send)
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 189, in __call__
+    |     with collapse_excgroups():
+    |          ^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/contextlib.py", line 158, in __exit__
+    |     self.gen.throw(value)
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/_utils.py", line 93, in collapse_excgroups
+    |     raise exc
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 191, in __call__
+    |     response = await self.dispatch_func(request, call_next)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/site-packages/nv/svc/facilities/monitoring/metrics/middleware.py", line 141, in dispatch
+    |     raise exc
+    |   File "/usr/local/lib/python3.12/site-packages/nv/svc/facilities/monitoring/metrics/middleware.py", line 130, in dispatch
+    |     response = await call_next(request)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 165, in call_next
+    |     raise app_exc
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 151, in coro
+    |     await self.app(scope, receive_or_disconnect, send_no_error)
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 189, in __call__
+    |     with collapse_excgroups():
+    |          ^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/contextlib.py", line 158, in __exit__
+    |     self.gen.throw(value)
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/_utils.py", line 93, in collapse_excgroups
+    |     raise exc
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 191, in __call__
+    |     response = await self.dispatch_func(request, call_next)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/site-packages/nv/svc/facilities/monitoring/metrics/middleware.py", line 141, in dispatch
+    |     raise exc
+    |   File "/usr/local/lib/python3.12/site-packages/nv/svc/facilities/monitoring/metrics/middleware.py", line 130, in dispatch
+    |     response = await call_next(request)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 165, in call_next
+    |     raise app_exc
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 151, in coro
+    |     await self.app(scope, receive_or_disconnect, send_no_error)
+    |   File "/usr/local/lib/python3.12/site-packages/asgi_correlation_id/middleware.py", line 90, in __call__
+    |     await self.app(scope, receive, handle_outgoing_request)
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 65, in __call__
+    |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    |     raise exc
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    |     await app(scope, receive, sender)
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/routing.py", line 756, in __call__
+    |     await self.middleware_stack(scope, receive, send)
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/routing.py", line 776, in app
+    |     await route.handle(scope, receive, send)
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/routing.py", line 297, in handle
+    |     await self.app(scope, receive, send)
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/routing.py", line 77, in app
+    |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    |     raise exc
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    |     await app(scope, receive, sender)
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/routing.py", line 72, in app
+    |     response = await func(request)
+    |                ^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/site-packages/nv/svc/core/auth/routers/authorized_service_router.py", line 152, in custom_route_handler
+    |     return await original_route_handler(request=authorized_request)
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/site-packages/fastapi/routing.py", line 278, in app
+    |     raw_response = await run_endpoint_function(
+    |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/site-packages/fastapi/routing.py", line 191, in run_endpoint_function
+    |     return await dependant.call(**values)
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/site-packages/nv/svc/streaming/service/router.py", line 55, in list_streams
+    |     res = await stream_manager.list_streams()
+    |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/site-packages/nv/svc/streaming/_manager.py", line 271, in list_streams
+    |     releases = await self._make_request('GET', f"{self._rmcp_url}/releases", params=params)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/site-packages/nv/svc/streaming/_manager.py", line 128, in _make_request
+    |     raise _APIError(status_code=resp.status, details=error_msg)
+    | nv.svc.streaming._manager._APIError: Error 404: Failed request to http://rmcp/api/v1/rmcp/releases: 404, {"detail":"Not Found"}
+    +------------------------------------
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/site-packages/uvicorn/protocols/http/httptools_impl.py", line 419, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/uvicorn/middleware/proxy_headers.py", line 84, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/fastapi/applications.py", line 1054, in __call__
+    await super().__call__(scope, receive, send)
+  File "/usr/local/lib/python3.12/site-packages/starlette/applications.py", line 123, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/errors.py", line 186, in __call__
+    raise exc
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/cors.py", line 85, in __call__
+    await self.app(scope, receive, send)
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 189, in __call__
+    with collapse_excgroups():
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "/usr/local/lib/python3.12/site-packages/starlette/_utils.py", line 93, in collapse_excgroups
+    raise exc
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 191, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/nv/svc/facilities/monitoring/metrics/middleware.py", line 141, in dispatch
+    raise exc
+  File "/usr/local/lib/python3.12/site-packages/nv/svc/facilities/monitoring/metrics/middleware.py", line 130, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 165, in call_next
+    raise app_exc
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 189, in __call__
+    with collapse_excgroups():
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "/usr/local/lib/python3.12/site-packages/starlette/_utils.py", line 93, in collapse_excgroups
+    raise exc
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 191, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/nv/svc/facilities/monitoring/metrics/middleware.py", line 141, in dispatch
+    raise exc
+  File "/usr/local/lib/python3.12/site-packages/nv/svc/facilities/monitoring/metrics/middleware.py", line 130, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 165, in call_next
+    raise app_exc
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/usr/local/lib/python3.12/site-packages/asgi_correlation_id/middleware.py", line 90, in __call__
+    await self.app(scope, receive, handle_outgoing_request)
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 65, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/usr/local/lib/python3.12/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "/usr/local/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "/usr/local/lib/python3.12/site-packages/starlette/routing.py", line 756, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/usr/local/lib/python3.12/site-packages/starlette/routing.py", line 776, in app
+    await route.handle(scope, receive, send)
+  File "/usr/local/lib/python3.12/site-packages/starlette/routing.py", line 297, in handle
+    await self.app(scope, receive, send)
+  File "/usr/local/lib/python3.12/site-packages/starlette/routing.py", line 77, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/usr/local/lib/python3.12/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "/usr/local/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "/usr/local/lib/python3.12/site-packages/starlette/routing.py", line 72, in app
+    response = await func(request)
+               ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/nv/svc/core/auth/routers/authorized_service_router.py", line 152, in custom_route_handler
+    return await original_route_handler(request=authorized_request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/fastapi/routing.py", line 278, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/fastapi/routing.py", line 191, in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/nv/svc/streaming/service/router.py", line 55, in list_streams
+    res = await stream_manager.list_streams()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/nv/svc/streaming/_manager.py", line 271, in list_streams
+    releases = await self._make_request('GET', f"{self._rmcp_url}/releases", params=params)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/nv/svc/streaming/_manager.py", line 128, in _make_request
+    raise _APIError(status_code=resp.status, details=error_msg)
+nv.svc.streaming._manager._APIError: Error 404: Failed request to http://rmcp/api/v1/rmcp/releases: 404, {"detail":"Not Found"}
+{"Timestamp": 1733869455575913114, "SeverityNumber": 17, "SeverityText": "ERROR", "InstrumentationScope": "", "Body": "Failed request to http://rmcp/api/v1/rmcp/releases: 404, {\"detail\":\"Not Found\"}", "Attributes": {"app.clock": 2473.881238461, "timestamp": "2024-12-10T22:24:15.575913114Z", "correlation_id": "b77f61cabe6b457e93e2ed457fc08da5"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+ERROR:    Exception in ASGI application
+  + Exception Group Traceback (most recent call last):
+  |   File "/usr/local/lib/python3.12/site-packages/starlette/_utils.py", line 87, in collapse_excgroups
+  |     yield
+  |   File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 190, in __call__
+  |     async with anyio.create_task_group() as task_group:
+  |                ^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/usr/local/lib/python3.12/site-packages/anyio/_backends/_asyncio.py", line 736, in __aexit__
+  |     raise BaseExceptionGroup(
+  | ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+  +-+---------------- 1 ----------------
+    | Traceback (most recent call last):
+    |   File "/usr/local/lib/python3.12/site-packages/uvicorn/protocols/http/httptools_impl.py", line 419, in run_asgi
+    |     result = await app(  # type: ignore[func-returns-value]
+    |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/site-packages/uvicorn/middleware/proxy_headers.py", line 84, in __call__
+    |     return await self.app(scope, receive, send)
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/site-packages/fastapi/applications.py", line 1054, in __call__
+    |     await super().__call__(scope, receive, send)
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/applications.py", line 123, in __call__
+    |     await self.middleware_stack(scope, receive, send)
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/middleware/errors.py", line 186, in __call__
+    |     raise exc
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/middleware/errors.py", line 164, in __call__
+    |     await self.app(scope, receive, _send)
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/middleware/cors.py", line 85, in __call__
+    |     await self.app(scope, receive, send)
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 189, in __call__
+    |     with collapse_excgroups():
+    |          ^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/contextlib.py", line 158, in __exit__
+    |     self.gen.throw(value)
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/_utils.py", line 93, in collapse_excgroups
+    |     raise exc
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 191, in __call__
+    |     response = await self.dispatch_func(request, call_next)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/site-packages/nv/svc/facilities/monitoring/metrics/middleware.py", line 141, in dispatch
+    |     raise exc
+    |   File "/usr/local/lib/python3.12/site-packages/nv/svc/facilities/monitoring/metrics/middleware.py", line 130, in dispatch
+    |     response = await call_next(request)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 165, in call_next
+    |     raise app_exc
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 151, in coro
+    |     await self.app(scope, receive_or_disconnect, send_no_error)
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 189, in __call__
+    |     with collapse_excgroups():
+    |          ^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/contextlib.py", line 158, in __exit__
+    |     self.gen.throw(value)
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/_utils.py", line 93, in collapse_excgroups
+    |     raise exc
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 191, in __call__
+    |     response = await self.dispatch_func(request, call_next)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/site-packages/nv/svc/facilities/monitoring/metrics/middleware.py", line 141, in dispatch
+    |     raise exc
+    |   File "/usr/local/lib/python3.12/site-packages/nv/svc/facilities/monitoring/metrics/middleware.py", line 130, in dispatch
+    |     response = await call_next(request)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 165, in call_next
+    |     raise app_exc
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 151, in coro
+    |     await self.app(scope, receive_or_disconnect, send_no_error)
+    |   File "/usr/local/lib/python3.12/site-packages/asgi_correlation_id/middleware.py", line 90, in __call__
+    |     await self.app(scope, receive, handle_outgoing_request)
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 65, in __call__
+    |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    |     raise exc
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    |     await app(scope, receive, sender)
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/routing.py", line 756, in __call__
+    |     await self.middleware_stack(scope, receive, send)
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/routing.py", line 776, in app
+    |     await route.handle(scope, receive, send)
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/routing.py", line 297, in handle
+    |     await self.app(scope, receive, send)
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/routing.py", line 77, in app
+    |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    |     raise exc
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    |     await app(scope, receive, sender)
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/routing.py", line 72, in app
+    |     response = await func(request)
+    |                ^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/site-packages/nv/svc/core/auth/routers/authorized_service_router.py", line 152, in custom_route_handler
+    |     return await original_route_handler(request=authorized_request)
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/site-packages/fastapi/routing.py", line 278, in app
+    |     raw_response = await run_endpoint_function(
+    |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/site-packages/fastapi/routing.py", line 191, in run_endpoint_function
+    |     return await dependant.call(**values)
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/site-packages/nv/svc/streaming/service/router.py", line 55, in list_streams
+    |     res = await stream_manager.list_streams()
+    |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/site-packages/nv/svc/streaming/_manager.py", line 271, in list_streams
+    |     releases = await self._make_request('GET', f"{self._rmcp_url}/releases", params=params)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/site-packages/nv/svc/streaming/_manager.py", line 128, in _make_request
+    |     raise _APIError(status_code=resp.status, details=error_msg)
+    | nv.svc.streaming._manager._APIError: Error 404: Failed request to http://rmcp/api/v1/rmcp/releases: 404, {"detail":"Not Found"}
+    +------------------------------------
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/site-packages/uvicorn/protocols/http/httptools_impl.py", line 419, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/uvicorn/middleware/proxy_headers.py", line 84, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/fastapi/applications.py", line 1054, in __call__
+    await super().__call__(scope, receive, send)
+  File "/usr/local/lib/python3.12/site-packages/starlette/applications.py", line 123, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/errors.py", line 186, in __call__
+    raise exc
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/cors.py", line 85, in __call__
+    await self.app(scope, receive, send)
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 189, in __call__
+    with collapse_excgroups():
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "/usr/local/lib/python3.12/site-packages/starlette/_utils.py", line 93, in collapse_excgroups
+    raise exc
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 191, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/nv/svc/facilities/monitoring/metrics/middleware.py", line 141, in dispatch
+    raise exc
+  File "/usr/local/lib/python3.12/site-packages/nv/svc/facilities/monitoring/metrics/middleware.py", line 130, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 165, in call_next
+    raise app_exc
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 189, in __call__
+    with collapse_excgroups():
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "/usr/local/lib/python3.12/site-packages/starlette/_utils.py", line 93, in collapse_excgroups
+    raise exc
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 191, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/nv/svc/facilities/monitoring/metrics/middleware.py", line 141, in dispatch
+    raise exc
+  File "/usr/local/lib/python3.12/site-packages/nv/svc/facilities/monitoring/metrics/middleware.py", line 130, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 165, in call_next
+    raise app_exc
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/usr/local/lib/python3.12/site-packages/asgi_correlation_id/middleware.py", line 90, in __call__
+    await self.app(scope, receive, handle_outgoing_request)
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 65, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/usr/local/lib/python3.12/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "/usr/local/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "/usr/local/lib/python3.12/site-packages/starlette/routing.py", line 756, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/usr/local/lib/python3.12/site-packages/starlette/routing.py", line 776, in app
+    await route.handle(scope, receive, send)
+  File "/usr/local/lib/python3.12/site-packages/starlette/routing.py", line 297, in handle
+    await self.app(scope, receive, send)
+  File "/usr/local/lib/python3.12/site-packages/starlette/routing.py", line 77, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/usr/local/lib/python3.12/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "/usr/local/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "/usr/local/lib/python3.12/site-packages/starlette/routing.py", line 72, in app
+    response = await func(request)
+               ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/nv/svc/core/auth/routers/authorized_service_router.py", line 152, in custom_route_handler
+    return await original_route_handler(request=authorized_request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/fastapi/routing.py", line 278, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/fastapi/routing.py", line 191, in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/nv/svc/streaming/service/router.py", line 55, in list_streams
+    res = await stream_manager.list_streams()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/nv/svc/streaming/_manager.py", line 271, in list_streams
+    releases = await self._make_request('GET', f"{self._rmcp_url}/releases", params=params)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/nv/svc/streaming/_manager.py", line 128, in _make_request
+    raise _APIError(status_code=resp.status, details=error_msg)
+nv.svc.streaming._manager._APIError: Error 404: Failed request to http://rmcp/api/v1/rmcp/releases: 404, {"detail":"Not Found"}
+{"Timestamp": 1733869472150725383, "SeverityNumber": 17, "SeverityText": "ERROR", "InstrumentationScope": "", "Body": "Failed request to http://rmcp/api/v1/rmcp/releases: 404, {\"detail\":\"Not Found\"}", "Attributes": {"app.clock": 2490.456052542, "timestamp": "2024-12-10T22:24:32.150725383Z", "correlation_id": "36ad39179f504c46b38f2f9cc2eb885e"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+ERROR:    Exception in ASGI application
+  + Exception Group Traceback (most recent call last):
+  |   File "/usr/local/lib/python3.12/site-packages/starlette/_utils.py", line 87, in collapse_excgroups
+  |     yield
+  |   File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 190, in __call__
+  |     async with anyio.create_task_group() as task_group:
+  |                ^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/usr/local/lib/python3.12/site-packages/anyio/_backends/_asyncio.py", line 736, in __aexit__
+  |     raise BaseExceptionGroup(
+  | ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+  +-+---------------- 1 ----------------
+    | Traceback (most recent call last):
+    |   File "/usr/local/lib/python3.12/site-packages/uvicorn/protocols/http/httptools_impl.py", line 419, in run_asgi
+    |     result = await app(  # type: ignore[func-returns-value]
+    |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/site-packages/uvicorn/middleware/proxy_headers.py", line 84, in __call__
+    |     return await self.app(scope, receive, send)
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/site-packages/fastapi/applications.py", line 1054, in __call__
+    |     await super().__call__(scope, receive, send)
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/applications.py", line 123, in __call__
+    |     await self.middleware_stack(scope, receive, send)
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/middleware/errors.py", line 186, in __call__
+    |     raise exc
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/middleware/errors.py", line 164, in __call__
+    |     await self.app(scope, receive, _send)
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/middleware/cors.py", line 85, in __call__
+    |     await self.app(scope, receive, send)
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 189, in __call__
+    |     with collapse_excgroups():
+    |          ^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/contextlib.py", line 158, in __exit__
+    |     self.gen.throw(value)
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/_utils.py", line 93, in collapse_excgroups
+    |     raise exc
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 191, in __call__
+    |     response = await self.dispatch_func(request, call_next)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/site-packages/nv/svc/facilities/monitoring/metrics/middleware.py", line 141, in dispatch
+    |     raise exc
+    |   File "/usr/local/lib/python3.12/site-packages/nv/svc/facilities/monitoring/metrics/middleware.py", line 130, in dispatch
+    |     response = await call_next(request)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 165, in call_next
+    |     raise app_exc
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 151, in coro
+    |     await self.app(scope, receive_or_disconnect, send_no_error)
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 189, in __call__
+    |     with collapse_excgroups():
+    |          ^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/contextlib.py", line 158, in __exit__
+    |     self.gen.throw(value)
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/_utils.py", line 93, in collapse_excgroups
+    |     raise exc
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 191, in __call__
+    |     response = await self.dispatch_func(request, call_next)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/site-packages/nv/svc/facilities/monitoring/metrics/middleware.py", line 141, in dispatch
+    |     raise exc
+    |   File "/usr/local/lib/python3.12/site-packages/nv/svc/facilities/monitoring/metrics/middleware.py", line 130, in dispatch
+    |     response = await call_next(request)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 165, in call_next
+    |     raise app_exc
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 151, in coro
+    |     await self.app(scope, receive_or_disconnect, send_no_error)
+    |   File "/usr/local/lib/python3.12/site-packages/asgi_correlation_id/middleware.py", line 90, in __call__
+    |     await self.app(scope, receive, handle_outgoing_request)
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 65, in __call__
+    |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    |     raise exc
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    |     await app(scope, receive, sender)
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/routing.py", line 756, in __call__
+    |     await self.middleware_stack(scope, receive, send)
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/routing.py", line 776, in app
+    |     await route.handle(scope, receive, send)
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/routing.py", line 297, in handle
+    |     await self.app(scope, receive, send)
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/routing.py", line 77, in app
+    |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    |     raise exc
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    |     await app(scope, receive, sender)
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/routing.py", line 72, in app
+    |     response = await func(request)
+    |                ^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/site-packages/nv/svc/core/auth/routers/authorized_service_router.py", line 152, in custom_route_handler
+    |     return await original_route_handler(request=authorized_request)
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/site-packages/fastapi/routing.py", line 278, in app
+    |     raw_response = await run_endpoint_function(
+    |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/site-packages/fastapi/routing.py", line 191, in run_endpoint_function
+    |     return await dependant.call(**values)
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/site-packages/nv/svc/streaming/service/router.py", line 55, in list_streams
+    |     res = await stream_manager.list_streams()
+    |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/site-packages/nv/svc/streaming/_manager.py", line 271, in list_streams
+    |     releases = await self._make_request('GET', f"{self._rmcp_url}/releases", params=params)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/site-packages/nv/svc/streaming/_manager.py", line 128, in _make_request
+    |     raise _APIError(status_code=resp.status, details=error_msg)
+    | nv.svc.streaming._manager._APIError: Error 404: Failed request to http://rmcp/api/v1/rmcp/releases: 404, {"detail":"Not Found"}
+    +------------------------------------
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/site-packages/uvicorn/protocols/http/httptools_impl.py", line 419, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/uvicorn/middleware/proxy_headers.py", line 84, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/fastapi/applications.py", line 1054, in __call__
+    await super().__call__(scope, receive, send)
+  File "/usr/local/lib/python3.12/site-packages/starlette/applications.py", line 123, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/errors.py", line 186, in __call__
+    raise exc
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/cors.py", line 85, in __call__
+    await self.app(scope, receive, send)
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 189, in __call__
+    with collapse_excgroups():
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "/usr/local/lib/python3.12/site-packages/starlette/_utils.py", line 93, in collapse_excgroups
+    raise exc
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 191, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/nv/svc/facilities/monitoring/metrics/middleware.py", line 141, in dispatch
+    raise exc
+  File "/usr/local/lib/python3.12/site-packages/nv/svc/facilities/monitoring/metrics/middleware.py", line 130, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 165, in call_next
+    raise app_exc
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 189, in __call__
+    with collapse_excgroups():
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "/usr/local/lib/python3.12/site-packages/starlette/_utils.py", line 93, in collapse_excgroups
+    raise exc
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 191, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/nv/svc/facilities/monitoring/metrics/middleware.py", line 141, in dispatch
+    raise exc
+  File "/usr/local/lib/python3.12/site-packages/nv/svc/facilities/monitoring/metrics/middleware.py", line 130, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 165, in call_next
+    raise app_exc
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/usr/local/lib/python3.12/site-packages/asgi_correlation_id/middleware.py", line 90, in __call__
+    await self.app(scope, receive, handle_outgoing_request)
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 65, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/usr/local/lib/python3.12/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "/usr/local/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "/usr/local/lib/python3.12/site-packages/starlette/routing.py", line 756, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/usr/local/lib/python3.12/site-packages/starlette/routing.py", line 776, in app
+    await route.handle(scope, receive, send)
+  File "/usr/local/lib/python3.12/site-packages/starlette/routing.py", line 297, in handle
+    await self.app(scope, receive, send)
+  File "/usr/local/lib/python3.12/site-packages/starlette/routing.py", line 77, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/usr/local/lib/python3.12/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "/usr/local/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "/usr/local/lib/python3.12/site-packages/starlette/routing.py", line 72, in app
+    response = await func(request)
+               ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/nv/svc/core/auth/routers/authorized_service_router.py", line 152, in custom_route_handler
+    return await original_route_handler(request=authorized_request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/fastapi/routing.py", line 278, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/fastapi/routing.py", line 191, in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/nv/svc/streaming/service/router.py", line 55, in list_streams
+    res = await stream_manager.list_streams()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/nv/svc/streaming/_manager.py", line 271, in list_streams
+    releases = await self._make_request('GET', f"{self._rmcp_url}/releases", params=params)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/nv/svc/streaming/_manager.py", line 128, in _make_request
+    raise _APIError(status_code=resp.status, details=error_msg)
+nv.svc.streaming._manager._APIError: Error 404: Failed request to http://rmcp/api/v1/rmcp/releases: 404, {"detail":"Not Found"}
+{"Timestamp": 1733869473490976300, "SeverityNumber": 17, "SeverityText": "ERROR", "InstrumentationScope": "", "Body": "Failed request to http://rmcp/api/v1/rmcp/releases: 404, {\"detail\":\"Not Found\"}", "Attributes": {"app.clock": 2491.796304703, "timestamp": "2024-12-10T22:24:33.490976300Z", "correlation_id": "87161205f44443bfb8941671d9482135"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+ERROR:    Exception in ASGI application
+  + Exception Group Traceback (most recent call last):
+  |   File "/usr/local/lib/python3.12/site-packages/starlette/_utils.py", line 87, in collapse_excgroups
+  |     yield
+  |   File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 190, in __call__
+  |     async with anyio.create_task_group() as task_group:
+  |                ^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/usr/local/lib/python3.12/site-packages/anyio/_backends/_asyncio.py", line 736, in __aexit__
+  |     raise BaseExceptionGroup(
+  | ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+  +-+---------------- 1 ----------------
+    | Traceback (most recent call last):
+    |   File "/usr/local/lib/python3.12/site-packages/uvicorn/protocols/http/httptools_impl.py", line 419, in run_asgi
+    |     result = await app(  # type: ignore[func-returns-value]
+    |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/site-packages/uvicorn/middleware/proxy_headers.py", line 84, in __call__
+    |     return await self.app(scope, receive, send)
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/site-packages/fastapi/applications.py", line 1054, in __call__
+    |     await super().__call__(scope, receive, send)
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/applications.py", line 123, in __call__
+    |     await self.middleware_stack(scope, receive, send)
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/middleware/errors.py", line 186, in __call__
+    |     raise exc
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/middleware/errors.py", line 164, in __call__
+    |     await self.app(scope, receive, _send)
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/middleware/cors.py", line 85, in __call__
+    |     await self.app(scope, receive, send)
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 189, in __call__
+    |     with collapse_excgroups():
+    |          ^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/contextlib.py", line 158, in __exit__
+    |     self.gen.throw(value)
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/_utils.py", line 93, in collapse_excgroups
+    |     raise exc
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 191, in __call__
+    |     response = await self.dispatch_func(request, call_next)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/site-packages/nv/svc/facilities/monitoring/metrics/middleware.py", line 141, in dispatch
+    |     raise exc
+    |   File "/usr/local/lib/python3.12/site-packages/nv/svc/facilities/monitoring/metrics/middleware.py", line 130, in dispatch
+    |     response = await call_next(request)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 165, in call_next
+    |     raise app_exc
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 151, in coro
+    |     await self.app(scope, receive_or_disconnect, send_no_error)
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 189, in __call__
+    |     with collapse_excgroups():
+    |          ^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/contextlib.py", line 158, in __exit__
+    |     self.gen.throw(value)
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/_utils.py", line 93, in collapse_excgroups
+    |     raise exc
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 191, in __call__
+    |     response = await self.dispatch_func(request, call_next)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/site-packages/nv/svc/facilities/monitoring/metrics/middleware.py", line 141, in dispatch
+    |     raise exc
+    |   File "/usr/local/lib/python3.12/site-packages/nv/svc/facilities/monitoring/metrics/middleware.py", line 130, in dispatch
+    |     response = await call_next(request)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 165, in call_next
+    |     raise app_exc
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 151, in coro
+    |     await self.app(scope, receive_or_disconnect, send_no_error)
+    |   File "/usr/local/lib/python3.12/site-packages/asgi_correlation_id/middleware.py", line 90, in __call__
+    |     await self.app(scope, receive, handle_outgoing_request)
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 65, in __call__
+    |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    |     raise exc
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    |     await app(scope, receive, sender)
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/routing.py", line 756, in __call__
+    |     await self.middleware_stack(scope, receive, send)
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/routing.py", line 776, in app
+    |     await route.handle(scope, receive, send)
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/routing.py", line 297, in handle
+    |     await self.app(scope, receive, send)
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/routing.py", line 77, in app
+    |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    |     raise exc
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    |     await app(scope, receive, sender)
+    |   File "/usr/local/lib/python3.12/site-packages/starlette/routing.py", line 72, in app
+    |     response = await func(request)
+    |                ^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/site-packages/nv/svc/core/auth/routers/authorized_service_router.py", line 152, in custom_route_handler
+    |     return await original_route_handler(request=authorized_request)
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/site-packages/fastapi/routing.py", line 278, in app
+    |     raw_response = await run_endpoint_function(
+    |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/site-packages/fastapi/routing.py", line 191, in run_endpoint_function
+    |     return await dependant.call(**values)
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/site-packages/nv/svc/streaming/service/router.py", line 55, in list_streams
+    |     res = await stream_manager.list_streams()
+    |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/site-packages/nv/svc/streaming/_manager.py", line 271, in list_streams
+    |     releases = await self._make_request('GET', f"{self._rmcp_url}/releases", params=params)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/site-packages/nv/svc/streaming/_manager.py", line 128, in _make_request
+    |     raise _APIError(status_code=resp.status, details=error_msg)
+    | nv.svc.streaming._manager._APIError: Error 404: Failed request to http://rmcp/api/v1/rmcp/releases: 404, {"detail":"Not Found"}
+    +------------------------------------
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/site-packages/uvicorn/protocols/http/httptools_impl.py", line 419, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/uvicorn/middleware/proxy_headers.py", line 84, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/fastapi/applications.py", line 1054, in __call__
+    await super().__call__(scope, receive, send)
+  File "/usr/local/lib/python3.12/site-packages/starlette/applications.py", line 123, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/errors.py", line 186, in __call__
+    raise exc
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/cors.py", line 85, in __call__
+    await self.app(scope, receive, send)
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 189, in __call__
+    with collapse_excgroups():
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "/usr/local/lib/python3.12/site-packages/starlette/_utils.py", line 93, in collapse_excgroups
+    raise exc
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 191, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/nv/svc/facilities/monitoring/metrics/middleware.py", line 141, in dispatch
+    raise exc
+  File "/usr/local/lib/python3.12/site-packages/nv/svc/facilities/monitoring/metrics/middleware.py", line 130, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 165, in call_next
+    raise app_exc
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 189, in __call__
+    with collapse_excgroups():
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "/usr/local/lib/python3.12/site-packages/starlette/_utils.py", line 93, in collapse_excgroups
+    raise exc
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 191, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/nv/svc/facilities/monitoring/metrics/middleware.py", line 141, in dispatch
+    raise exc
+  File "/usr/local/lib/python3.12/site-packages/nv/svc/facilities/monitoring/metrics/middleware.py", line 130, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 165, in call_next
+    raise app_exc
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/usr/local/lib/python3.12/site-packages/asgi_correlation_id/middleware.py", line 90, in __call__
+    await self.app(scope, receive, handle_outgoing_request)
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 65, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/usr/local/lib/python3.12/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "/usr/local/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "/usr/local/lib/python3.12/site-packages/starlette/routing.py", line 756, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/usr/local/lib/python3.12/site-packages/starlette/routing.py", line 776, in app
+    await route.handle(scope, receive, send)
+  File "/usr/local/lib/python3.12/site-packages/starlette/routing.py", line 297, in handle
+    await self.app(scope, receive, send)
+  File "/usr/local/lib/python3.12/site-packages/starlette/routing.py", line 77, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/usr/local/lib/python3.12/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "/usr/local/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "/usr/local/lib/python3.12/site-packages/starlette/routing.py", line 72, in app
+    response = await func(request)
+               ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/nv/svc/core/auth/routers/authorized_service_router.py", line 152, in custom_route_handler
+    return await original_route_handler(request=authorized_request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/fastapi/routing.py", line 278, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/fastapi/routing.py", line 191, in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/nv/svc/streaming/service/router.py", line 55, in list_streams
+    res = await stream_manager.list_streams()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/nv/svc/streaming/_manager.py", line 271, in list_streams
+    releases = await self._make_request('GET', f"{self._rmcp_url}/releases", params=params)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/nv/svc/streaming/_manager.py", line 128, in _make_request
+    raise _APIError(status_code=resp.status, details=error_msg)
+nv.svc.streaming._manager._APIError: Error 404: Failed request to http://rmcp/api/v1/rmcp/releases: 404, {"detail":"Not Found"}
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/site-packages/aiohttp/connector.py", line 1073, in _wrap_create_connection
+    sock = await aiohappyeyeballs.start_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/aiohappyeyeballs/impl.py", line 104, in start_connection
+    raise first_exception
+  File "/usr/local/lib/python3.12/site-packages/aiohappyeyeballs/impl.py", line 81, in start_connection
+    sock = await _connect_sock(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/aiohappyeyeballs/impl.py", line 166, in _connect_sock
+    await loop.sock_connect(sock, address)
+  File "uvloop/loop.pyx", line 2615, in sock_connect
+  File "uvloop/loop.pyx", line 1106, in uvloop.loop.Loop._sock_connect_cb
+ConnectionRefusedError: [Errno 111] Connect call failed ('10.0.113.200', 80)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/site-packages/uvicorn/protocols/http/httptools_impl.py", line 419, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/uvicorn/middleware/proxy_headers.py", line 84, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/fastapi/applications.py", line 1054, in __call__
+    await super().__call__(scope, receive, send)
+  File "/usr/local/lib/python3.12/site-packages/starlette/applications.py", line 123, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/errors.py", line 186, in __call__
+    raise exc
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/cors.py", line 85, in __call__
+    await self.app(scope, receive, send)
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 189, in __call__
+    with collapse_excgroups():
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "/usr/local/lib/python3.12/site-packages/starlette/_utils.py", line 93, in collapse_excgroups
+    raise exc
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 191, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/nv/svc/facilities/monitoring/metrics/middleware.py", line 141, in dispatch
+    raise exc
+  File "/usr/local/lib/python3.12/site-packages/nv/svc/facilities/monitoring/metrics/middleware.py", line 130, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 165, in call_next
+    raise app_exc
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 189, in __call__
+    with collapse_excgroups():
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "/usr/local/lib/python3.12/site-packages/starlette/_utils.py", line 93, in collapse_excgroups
+    raise exc
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 191, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/nv/svc/facilities/monitoring/metrics/middleware.py", line 141, in dispatch
+    raise exc
+  File "/usr/local/lib/python3.12/site-packages/nv/svc/facilities/monitoring/metrics/middleware.py", line 130, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 165, in call_next
+    raise app_exc
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/usr/local/lib/python3.12/site-packages/asgi_correlation_id/middleware.py", line 90, in __call__
+    await self.app(scope, receive, handle_outgoing_request)
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 65, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/usr/local/lib/python3.12/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "/usr/local/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "/usr/local/lib/python3.12/site-packages/starlette/routing.py", line 756, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/usr/local/lib/python3.12/site-packages/starlette/routing.py", line 776, in app
+    await route.handle(scope, receive, send)
+  File "/usr/local/lib/python3.12/site-packages/starlette/routing.py", line 297, in handle
+    await self.app(scope, receive, send)
+  File "/usr/local/lib/python3.12/site-packages/starlette/routing.py", line 77, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/usr/local/lib/python3.12/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "/usr/local/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "/usr/local/lib/python3.12/site-packages/starlette/routing.py", line 72, in app
+    response = await func(request)
+               ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/nv/svc/core/auth/routers/authorized_service_router.py", line 152, in custom_route_handler
+    return await original_route_handler(request=authorized_request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/fastapi/routing.py", line 278, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/fastapi/routing.py", line 191, in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/nv/svc/streaming/service/router.py", line 55, in list_streams
+    res = await stream_manager.list_streams()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/nv/svc/streaming/_manager.py", line 271, in list_streams
+    releases = await self._make_request('GET', f"{self._rmcp_url}/releases", params=params)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/nv/svc/streaming/_manager.py", line 123, in _make_request
+    async with request_method(url, json=json_body, params=params) as resp:
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/aiohttp/client.py", line 1353, in __aenter__
+    self._resp = await self._coro
+                 ^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/aiohttp/client.py", line 657, in _request
+    conn = await self._connector.connect(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/aiohttp/connector.py", line 564, in connect
+    proto = await self._create_connection(req, traces, timeout)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/aiohttp/connector.py", line 975, in _create_connection
+    _, proto = await self._create_direct_connection(req, traces, timeout)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/aiohttp/connector.py", line 1350, in _create_direct_connection
+    raise last_exc
+  File "/usr/local/lib/python3.12/site-packages/aiohttp/connector.py", line 1319, in _create_direct_connection
+    transp, proto = await self._wrap_create_connection(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/aiohttp/connector.py", line 1088, in _wrap_create_connection
+    raise client_error(req.connection_key, exc) from exc
+aiohttp.client_exceptions.ClientConnectorError: Cannot connect to host rmcp:80 ssl:default [Connect call failed ('10.0.113.200', 80)]
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/site-packages/aiohttp/connector.py", line 1073, in _wrap_create_connection
+    sock = await aiohappyeyeballs.start_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/aiohappyeyeballs/impl.py", line 104, in start_connection
+    raise first_exception
+  File "/usr/local/lib/python3.12/site-packages/aiohappyeyeballs/impl.py", line 81, in start_connection
+    sock = await _connect_sock(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/aiohappyeyeballs/impl.py", line 166, in _connect_sock
+    await loop.sock_connect(sock, address)
+  File "uvloop/loop.pyx", line 2615, in sock_connect
+  File "uvloop/loop.pyx", line 1106, in uvloop.loop.Loop._sock_connect_cb
+ConnectionRefusedError: [Errno 111] Connect call failed ('10.0.113.200', 80)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/site-packages/uvicorn/protocols/http/httptools_impl.py", line 419, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/uvicorn/middleware/proxy_headers.py", line 84, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/fastapi/applications.py", line 1054, in __call__
+    await super().__call__(scope, receive, send)
+  File "/usr/local/lib/python3.12/site-packages/starlette/applications.py", line 123, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/errors.py", line 186, in __call__
+    raise exc
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/cors.py", line 85, in __call__
+    await self.app(scope, receive, send)
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 189, in __call__
+    with collapse_excgroups():
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "/usr/local/lib/python3.12/site-packages/starlette/_utils.py", line 93, in collapse_excgroups
+    raise exc
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 191, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/nv/svc/facilities/monitoring/metrics/middleware.py", line 141, in dispatch
+    raise exc
+  File "/usr/local/lib/python3.12/site-packages/nv/svc/facilities/monitoring/metrics/middleware.py", line 130, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 165, in call_next
+    raise app_exc
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 189, in __call__
+    with collapse_excgroups():
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "/usr/local/lib/python3.12/site-packages/starlette/_utils.py", line 93, in collapse_excgroups
+    raise exc
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 191, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/nv/svc/facilities/monitoring/metrics/middleware.py", line 141, in dispatch
+    raise exc
+  File "/usr/local/lib/python3.12/site-packages/nv/svc/facilities/monitoring/metrics/middleware.py", line 130, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 165, in call_next
+    raise app_exc
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/usr/local/lib/python3.12/site-packages/asgi_correlation_id/middleware.py", line 90, in __call__
+    await self.app(scope, receive, handle_outgoing_request)
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 65, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/usr/local/lib/python3.12/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "/usr/local/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "/usr/local/lib/python3.12/site-packages/starlette/routing.py", line 756, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/usr/local/lib/python3.12/site-packages/starlette/routing.py", line 776, in app
+    await route.handle(scope, receive, send)
+  File "/usr/local/lib/python3.12/site-packages/starlette/routing.py", line 297, in handle
+    await self.app(scope, receive, send)
+  File "/usr/local/lib/python3.12/site-packages/starlette/routing.py", line 77, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/usr/local/lib/python3.12/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "/usr/local/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "/usr/local/lib/python3.12/site-packages/starlette/routing.py", line 72, in app
+    response = await func(request)
+               ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/nv/svc/core/auth/routers/authorized_service_router.py", line 152, in custom_route_handler
+    return await original_route_handler(request=authorized_request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/fastapi/routing.py", line 278, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/fastapi/routing.py", line 191, in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/nv/svc/streaming/service/router.py", line 55, in list_streams
+    res = await stream_manager.list_streams()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/nv/svc/streaming/_manager.py", line 271, in list_streams
+    releases = await self._make_request('GET', f"{self._rmcp_url}/releases", params=params)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/nv/svc/streaming/_manager.py", line 123, in _make_request
+    async with request_method(url, json=json_body, params=params) as resp:
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/aiohttp/client.py", line 1353, in __aenter__
+    self._resp = await self._coro
+                 ^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/aiohttp/client.py", line 657, in _request
+    conn = await self._connector.connect(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/aiohttp/connector.py", line 564, in connect
+    proto = await self._create_connection(req, traces, timeout)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/aiohttp/connector.py", line 975, in _create_connection
+    _, proto = await self._create_direct_connection(req, traces, timeout)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/aiohttp/connector.py", line 1350, in _create_direct_connection
+    raise last_exc
+  File "/usr/local/lib/python3.12/site-packages/aiohttp/connector.py", line 1319, in _create_direct_connection
+    transp, proto = await self._wrap_create_connection(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/aiohttp/connector.py", line 1088, in _wrap_create_connection
+    raise client_error(req.connection_key, exc) from exc
+aiohttp.client_exceptions.ClientConnectorError: Cannot connect to host rmcp:80 ssl:default [Connect call failed ('10.0.113.200', 80)]
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/site-packages/aiohttp/connector.py", line 1073, in _wrap_create_connection
+    sock = await aiohappyeyeballs.start_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/aiohappyeyeballs/impl.py", line 104, in start_connection
+    raise first_exception
+  File "/usr/local/lib/python3.12/site-packages/aiohappyeyeballs/impl.py", line 81, in start_connection
+    sock = await _connect_sock(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/aiohappyeyeballs/impl.py", line 166, in _connect_sock
+    await loop.sock_connect(sock, address)
+  File "uvloop/loop.pyx", line 2615, in sock_connect
+  File "uvloop/loop.pyx", line 1106, in uvloop.loop.Loop._sock_connect_cb
+ConnectionRefusedError: [Errno 111] Connect call failed ('10.0.113.200', 80)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/site-packages/uvicorn/protocols/http/httptools_impl.py", line 419, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/uvicorn/middleware/proxy_headers.py", line 84, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/fastapi/applications.py", line 1054, in __call__
+    await super().__call__(scope, receive, send)
+  File "/usr/local/lib/python3.12/site-packages/starlette/applications.py", line 123, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/errors.py", line 186, in __call__
+    raise exc
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/cors.py", line 85, in __call__
+    await self.app(scope, receive, send)
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 189, in __call__
+    with collapse_excgroups():
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "/usr/local/lib/python3.12/site-packages/starlette/_utils.py", line 93, in collapse_excgroups
+    raise exc
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 191, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/nv/svc/facilities/monitoring/metrics/middleware.py", line 141, in dispatch
+    raise exc
+  File "/usr/local/lib/python3.12/site-packages/nv/svc/facilities/monitoring/metrics/middleware.py", line 130, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 165, in call_next
+    raise app_exc
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 189, in __call__
+    with collapse_excgroups():
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "/usr/local/lib/python3.12/site-packages/starlette/_utils.py", line 93, in collapse_excgroups
+    raise exc
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 191, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/nv/svc/facilities/monitoring/metrics/middleware.py", line 141, in dispatch
+    raise exc
+  File "/usr/local/lib/python3.12/site-packages/nv/svc/facilities/monitoring/metrics/middleware.py", line 130, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 165, in call_next
+    raise app_exc
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/usr/local/lib/python3.12/site-packages/asgi_correlation_id/middleware.py", line 90, in __call__
+    await self.app(scope, receive, handle_outgoing_request)
+  File "/usr/local/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 65, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/usr/local/lib/python3.12/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "/usr/local/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "/usr/local/lib/python3.12/site-packages/starlette/routing.py", line 756, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/usr/local/lib/python3.12/site-packages/starlette/routing.py", line 776, in app
+    await route.handle(scope, receive, send)
+  File "/usr/local/lib/python3.12/site-packages/starlette/routing.py", line 297, in handle
+    await self.app(scope, receive, send)
+  File "/usr/local/lib/python3.12/site-packages/starlette/routing.py", line 77, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/usr/local/lib/python3.12/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "/usr/local/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "/usr/local/lib/python3.12/site-packages/starlette/routing.py", line 72, in app
+    response = await func(request)
+               ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/nv/svc/core/auth/routers/authorized_service_router.py", line 152, in custom_route_handler
+    return await original_route_handler(request=authorized_request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/fastapi/routing.py", line 278, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/fastapi/routing.py", line 191, in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/nv/svc/streaming/service/router.py", line 55, in list_streams
+    res = await stream_manager.list_streams()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/nv/svc/streaming/_manager.py", line 271, in list_streams
+    releases = await self._make_request('GET', f"{self._rmcp_url}/releases", params=params)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/nv/svc/streaming/_manager.py", line 123, in _make_request
+    async with request_method(url, json=json_body, params=params) as resp:
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/aiohttp/client.py", line 1353, in __aenter__
+    self._resp = await self._coro
+                 ^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/aiohttp/client.py", line 657, in _request
+    conn = await self._connector.connect(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/aiohttp/connector.py", line 564, in connect
+    proto = await self._create_connection(req, traces, timeout)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/aiohttp/connector.py", line 975, in _create_connection
+    _, proto = await self._create_direct_connection(req, traces, timeout)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/aiohttp/connector.py", line 1350, in _create_direct_connection
+    raise last_exc
+  File "/usr/local/lib/python3.12/site-packages/aiohttp/connector.py", line 1319, in _create_direct_connection
+    transp, proto = await self._wrap_create_connection(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/aiohttp/connector.py", line 1088, in _wrap_create_connection
+    raise client_error(req.connection_key, exc) from exc
+aiohttp.client_exceptions.ClientConnectorError: Cannot connect to host rmcp:80 ssl:default [Connect call failed ('10.0.113.200', 80)]
+{"Timestamp": 1733870105216230055, "SeverityNumber": 9, "SeverityText": "INFO", "InstrumentationScope": "", "Body": "Deleting release for 1b341eed-fcef-4b24-969b-ee0134803b20", "Attributes": {"app.clock": 3123.521556854, "timestamp": "2024-12-10T22:35:05.216230055Z", "correlation_id": "95d84afd56744c91828a4b64897c3c61"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733870105652311723, "SeverityNumber": 9, "SeverityText": "INFO", "InstrumentationScope": "", "Body": "Successfully terminated session 1b341eed-fcef-4b24-969b-ee0134803b20", "Attributes": {"app.clock": 3123.957638264, "timestamp": "2024-12-10T22:35:05.652311723Z", "correlation_id": "95d84afd56744c91828a4b64897c3c61"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733880333812993969, "SeverityNumber": 13, "SeverityText": "WARNING", "InstrumentationScope": "", "Body": "Failed to resolve DNS for nshhok.appgw.contoso-omniverse.com. The domain might not have propagated yet if this is a new stream. (4, 'Domain name not found')", "Attributes": {"app.clock": 13352.118328571, "timestamp": "2024-12-11T01:25:33.812993969Z", "correlation_id": "00dce74adf5e4be3b5a8260dce1d4d2f"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733880356021754131, "SeverityNumber": 9, "SeverityText": "INFO", "InstrumentationScope": "", "Body": "Deleting release for 62c0e5e0-e88c-4daf-b143-3696d8c2191e", "Attributes": {"app.clock": 13374.327100754, "timestamp": "2024-12-11T01:25:56.021754131Z", "correlation_id": "4b93be0d1bb545978c5035b7dcf77939"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733880356249406488, "SeverityNumber": 13, "SeverityText": "WARNING", "InstrumentationScope": "", "Body": "Failed to resolve DNS for nshhok.appgw.contoso-omniverse.com. The domain might not have propagated yet if this is a new stream. (4, 'Domain name not found')", "Attributes": {"app.clock": 13374.5547328, "timestamp": "2024-12-11T01:25:56.249406488Z", "correlation_id": "4b93be0d1bb545978c5035b7dcf77939"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733880356446248661, "SeverityNumber": 9, "SeverityText": "INFO", "InstrumentationScope": "", "Body": "Successfully terminated session 62c0e5e0-e88c-4daf-b143-3696d8c2191e", "Attributes": {"app.clock": 13374.75158453, "timestamp": "2024-12-11T01:25:56.446248661Z", "correlation_id": "4b93be0d1bb545978c5035b7dcf77939"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733880363725369748, "SeverityNumber": 13, "SeverityText": "WARNING", "InstrumentationScope": "", "Body": "Failed to resolve DNS for nshhok.appgw.contoso-omniverse.com. The domain might not have propagated yet if this is a new stream. (4, 'Domain name not found')", "Attributes": {"app.clock": 13382.03069663, "timestamp": "2024-12-11T01:26:03.725369748Z", "correlation_id": "7b2c06833e594987bff375651846dcc6"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733880515166389407, "SeverityNumber": 13, "SeverityText": "WARNING", "InstrumentationScope": "", "Body": "Failed to resolve DNS for chzlki.appgw.contoso-omniverse.com. The domain might not have propagated yet if this is a new stream. (4, 'Domain name not found')", "Attributes": {"app.clock": 13533.471715212, "timestamp": "2024-12-11T01:28:35.166389407Z", "correlation_id": "19415f0c1a3b4d198d533b09feb6f0bb"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733880595496697936, "SeverityNumber": 13, "SeverityText": "WARNING", "InstrumentationScope": "", "Body": "Failed to resolve DNS for chzlki.appgw.contoso-omniverse.com. The domain might not have propagated yet if this is a new stream. (4, 'Domain name not found')", "Attributes": {"app.clock": 13613.80202651, "timestamp": "2024-12-11T01:29:55.496697936Z", "correlation_id": "f5369b83d2234a3f88d631b24922058e"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733880842068457737, "SeverityNumber": 13, "SeverityText": "WARNING", "InstrumentationScope": "", "Body": "Failed to resolve DNS for chzlki.appgw.contoso-omniverse.com. The domain might not have propagated yet if this is a new stream. (4, 'Domain name not found')", "Attributes": {"app.clock": 13860.373785734, "timestamp": "2024-12-11T01:34:02.068457737Z", "correlation_id": "36993fb9a646433b89797fbf74149280"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733885572586413783, "SeverityNumber": 13, "SeverityText": "WARNING", "InstrumentationScope": "", "Body": "Failed to resolve DNS for chzlki.appgw.contoso-omniverse.com. The domain might not have propagated yet if this is a new stream. (4, 'Domain name not found')", "Attributes": {"app.clock": 18590.89174509, "timestamp": "2024-12-11T02:52:52.586413783Z", "correlation_id": "7ae02f132ae8462395f7c9fe36a4ede8"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733885600970912854, "SeverityNumber": 9, "SeverityText": "INFO", "InstrumentationScope": "", "Body": "Deleting release for c9f4b98b-aeb5-4de5-9db4-2a921e22103f", "Attributes": {"app.clock": 18619.276240349, "timestamp": "2024-12-11T02:53:20.970912854Z", "correlation_id": "0b61b4bd9650487591aeb0abeec7eae6"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733885601267977207, "SeverityNumber": 13, "SeverityText": "WARNING", "InstrumentationScope": "", "Body": "Failed to resolve DNS for chzlki.appgw.contoso-omniverse.com. The domain might not have propagated yet if this is a new stream. (4, 'Domain name not found')", "Attributes": {"app.clock": 18619.573298931, "timestamp": "2024-12-11T02:53:21.267977207Z", "correlation_id": "0b61b4bd9650487591aeb0abeec7eae6"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733885601470476771, "SeverityNumber": 9, "SeverityText": "INFO", "InstrumentationScope": "", "Body": "Successfully terminated session c9f4b98b-aeb5-4de5-9db4-2a921e22103f", "Attributes": {"app.clock": 18619.775800943, "timestamp": "2024-12-11T02:53:21.470476771Z", "correlation_id": "0b61b4bd9650487591aeb0abeec7eae6"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733885611769974017, "SeverityNumber": 13, "SeverityText": "WARNING", "InstrumentationScope": "", "Body": "Failed to resolve DNS for chzlki.appgw.contoso-omniverse.com. The domain might not have propagated yet if this is a new stream. (4, 'Domain name not found')", "Attributes": {"app.clock": 18630.075299501, "timestamp": "2024-12-11T02:53:31.769974017Z", "correlation_id": "4e72a58cc928420f943f4cb52e05da07"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733885636861986403, "SeverityNumber": 9, "SeverityText": "INFO", "InstrumentationScope": "", "Body": "Deleting release for c9f4b98b-aeb5-4de5-9db4-2a921e22103f", "Attributes": {"app.clock": 18655.167314053, "timestamp": "2024-12-11T02:53:56.861986403Z", "correlation_id": "034500d94cb14d169b8471ee2c022c14"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733885637366244627, "SeverityNumber": 17, "SeverityText": "ERROR", "InstrumentationScope": "", "Body": "Failed request to http://rmcp/api/v1/rmcp/releases: 404, {\"detail\":\"Release with name 'c9f4b98b-aeb5-4de5-9db4-2a921e22103f' not found in namespace 'omni-streaming'\"}", "Attributes": {"app.clock": 18655.671571016, "timestamp": "2024-12-11T02:53:57.366244627Z", "correlation_id": "034500d94cb14d169b8471ee2c022c14"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733885637366420184, "SeverityNumber": 17, "SeverityText": "ERROR", "InstrumentationScope": "", "Body": "Failed to terminate release c9f4b98b-aeb5-4de5-9db4-2a921e22103f: error: 404 message: Failed request to http://rmcp/api/v1/rmcp/releases: 404, {\"detail\":\"Release with name 'c9f4b98b-aeb5-4de5-9db4-2a921e22103f' not found in namespace 'omni-streaming'\"}", "Attributes": {"app.clock": 18655.671742439, "timestamp": "2024-12-11T02:53:57.366420184Z", "correlation_id": "034500d94cb14d169b8471ee2c022c14"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733885637366509240, "SeverityNumber": 17, "SeverityText": "ERROR", "InstrumentationScope": "", "Body": "Failed to terminate session c9f4b98b-aeb5-4de5-9db4-2a921e22103f: Session not found", "Attributes": {"app.clock": 18655.6718328, "timestamp": "2024-12-11T02:53:57.366509240Z", "correlation_id": "034500d94cb14d169b8471ee2c022c14"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733885862969739534, "SeverityNumber": 13, "SeverityText": "WARNING", "InstrumentationScope": "", "Body": "Failed to resolve DNS for vigzgn.appgw.contoso-omniverse.com. The domain might not have propagated yet if this is a new stream. (4, 'Domain name not found')", "Attributes": {"app.clock": 18881.275074244, "timestamp": "2024-12-11T02:57:42.969739534Z", "correlation_id": "bd27c46282584a57bed80945ca208768"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733927502828371449, "SeverityNumber": 13, "SeverityText": "WARNING", "InstrumentationScope": "", "Body": "Failed to resolve DNS for vigzgn.appgw.contoso-omniverse.com. The domain might not have propagated yet if this is a new stream. (4, 'Domain name not found')", "Attributes": {"app.clock": 60521.133702755, "timestamp": "2024-12-11T14:31:42.828371449Z", "correlation_id": "64f6571684634caa82911d679a7cb0fc"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733927502862101839, "SeverityNumber": 17, "SeverityText": "ERROR", "InstrumentationScope": "", "Body": "Failed request to http://resolver/resolve: 404, {\"detail\":\"Failed to resolve usd-viewer-msft, 106.1.0, azurelb-wss: usd-viewer-msft not found within omni-streaming\"}", "Attributes": {"app.clock": 60521.167424202, "timestamp": "2024-12-11T14:31:42.862101839Z", "correlation_id": "64f6571684634caa82911d679a7cb0fc"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733927502862275132, "SeverityNumber": 17, "SeverityText": "ERROR", "InstrumentationScope": "", "Body": "Failed to start a new stream. Application, version or profile not found: usd-viewer-msft, 106.1.0 and azurelb-wss are not a valid combination. Failed to resolve", "Attributes": {"app.clock": 60521.167594433, "timestamp": "2024-12-11T14:31:42.862275132Z", "correlation_id": "64f6571684634caa82911d679a7cb0fc"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733927541449509116, "SeverityNumber": 13, "SeverityText": "WARNING", "InstrumentationScope": "", "Body": "Failed to resolve DNS for vigzgn.appgw.contoso-omniverse.com. The domain might not have propagated yet if this is a new stream. (4, 'Domain name not found')", "Attributes": {"app.clock": 60559.754838228, "timestamp": "2024-12-11T14:32:21.449509116Z", "correlation_id": "5cab2b674a4e48169c072206ae0971fd"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733927541479416098, "SeverityNumber": 17, "SeverityText": "ERROR", "InstrumentationScope": "", "Body": "Failed request to http://resolver/resolve: 404, {\"detail\":\"Failed to resolve usd-viewer-msft, 106.1.0, azurelb-wss: usd-viewer-msft not found within omni-streaming\"}", "Attributes": {"app.clock": 60559.784740448, "timestamp": "2024-12-11T14:32:21.479416098Z", "correlation_id": "5cab2b674a4e48169c072206ae0971fd"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733927541479616532, "SeverityNumber": 17, "SeverityText": "ERROR", "InstrumentationScope": "", "Body": "Failed to start a new stream. Application, version or profile not found: usd-viewer-msft, 106.1.0 and azurelb-wss are not a valid combination. Failed to resolve", "Attributes": {"app.clock": 60559.784938335, "timestamp": "2024-12-11T14:32:21.479616532Z", "correlation_id": "5cab2b674a4e48169c072206ae0971fd"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733927892711225178, "SeverityNumber": 13, "SeverityText": "WARNING", "InstrumentationScope": "", "Body": "Failed to resolve DNS for vigzgn.appgw.contoso-omniverse.com. The domain might not have propagated yet if this is a new stream. (4, 'Domain name not found')", "Attributes": {"app.clock": 60911.016550779, "timestamp": "2024-12-11T14:38:12.711225178Z", "correlation_id": "0b004ac7421f492e8444378fb26f05d8"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733928780101269840, "SeverityNumber": 13, "SeverityText": "WARNING", "InstrumentationScope": "", "Body": "Failed to resolve DNS for vigzgn.appgw.contoso-omniverse.com. The domain might not have propagated yet if this is a new stream. (4, 'Domain name not found')", "Attributes": {"app.clock": 61798.40660429, "timestamp": "2024-12-11T14:53:00.101269840Z", "correlation_id": "ef0cd853997a447187d783ab67ef01f8"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733928894441560924, "SeverityNumber": 13, "SeverityText": "WARNING", "InstrumentationScope": "", "Body": "Failed to resolve DNS for vigzgn.appgw.contoso-omniverse.com. The domain might not have propagated yet if this is a new stream. (4, 'Domain name not found')", "Attributes": {"app.clock": 61912.746887684, "timestamp": "2024-12-11T14:54:54.441560924Z", "correlation_id": "693d8ffddc654305bd89ca09b0a66658"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733929981270889112, "SeverityNumber": 13, "SeverityText": "WARNING", "InstrumentationScope": "", "Body": "Failed to resolve DNS for vigzgn.appgw.contoso-omniverse.com. The domain might not have propagated yet if this is a new stream. (4, 'Domain name not found')", "Attributes": {"app.clock": 62999.576220751, "timestamp": "2024-12-11T15:13:01.270889112Z", "correlation_id": "b78af44c2c4c42dea5504088e53ab3e2"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733930008189645783, "SeverityNumber": 13, "SeverityText": "WARNING", "InstrumentationScope": "", "Body": "Failed to resolve DNS for vigzgn.appgw.contoso-omniverse.com. The domain might not have propagated yet if this is a new stream. (4, 'Domain name not found')", "Attributes": {"app.clock": 63026.494972944, "timestamp": "2024-12-11T15:13:28.189645783Z", "correlation_id": "9b8559235ee84204896a3c6343e5cc01"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733930212729255270, "SeverityNumber": 13, "SeverityText": "WARNING", "InstrumentationScope": "", "Body": "Failed to resolve DNS for vigzgn.appgw.contoso-omniverse.com. The domain might not have propagated yet if this is a new stream. (4, 'Domain name not found')", "Attributes": {"app.clock": 63231.034580469, "timestamp": "2024-12-11T15:16:52.729255270Z", "correlation_id": "2c5ecf95a7254383b2efc1c5bb68a4d5"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733930260861101229, "SeverityNumber": 13, "SeverityText": "WARNING", "InstrumentationScope": "", "Body": "Failed to resolve DNS for vigzgn.appgw.contoso-omniverse.com. The domain might not have propagated yet if this is a new stream. (4, 'Domain name not found')", "Attributes": {"app.clock": 63279.16642642, "timestamp": "2024-12-11T15:17:40.861101229Z", "correlation_id": "a0c6227eabc046beaf034a428e30b7ec"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733930285501313341, "SeverityNumber": 13, "SeverityText": "WARNING", "InstrumentationScope": "", "Body": "Failed to resolve DNS for vigzgn.appgw.contoso-omniverse.com. The domain might not have propagated yet if this is a new stream. (4, 'Domain name not found')", "Attributes": {"app.clock": 63303.806637526, "timestamp": "2024-12-11T15:18:05.501313341Z", "correlation_id": "d8853ef97c4e4801958ad2aec53c5d55"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733930285529472849, "SeverityNumber": 17, "SeverityText": "ERROR", "InstrumentationScope": "", "Body": "Failed request to http://resolver/resolve: 404, {\"detail\":\"Failed to resolve usd-viewer-msft, 106.1.0, azurelb-wss: usd-viewer-msft not found within omni-streaming\"}", "Attributes": {"app.clock": 63303.834793806, "timestamp": "2024-12-11T15:18:05.529472849Z", "correlation_id": "d8853ef97c4e4801958ad2aec53c5d55"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733930285529645791, "SeverityNumber": 17, "SeverityText": "ERROR", "InstrumentationScope": "", "Body": "Failed to start a new stream. Application, version or profile not found: usd-viewer-msft, 106.1.0 and azurelb-wss are not a valid combination. Failed to resolve", "Attributes": {"app.clock": 63303.834965706, "timestamp": "2024-12-11T15:18:05.529645791Z", "correlation_id": "d8853ef97c4e4801958ad2aec53c5d55"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733930287821252360, "SeverityNumber": 13, "SeverityText": "WARNING", "InstrumentationScope": "", "Body": "Failed to resolve DNS for vigzgn.appgw.contoso-omniverse.com. The domain might not have propagated yet if this is a new stream. (4, 'Domain name not found')", "Attributes": {"app.clock": 63306.126577377, "timestamp": "2024-12-11T15:18:07.821252360Z", "correlation_id": "f350aae300ec47c5bfaa7dbb22585015"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733930294172063874, "SeverityNumber": 13, "SeverityText": "WARNING", "InstrumentationScope": "", "Body": "Failed to resolve DNS for vigzgn.appgw.contoso-omniverse.com. The domain might not have propagated yet if this is a new stream. (4, 'Domain name not found')", "Attributes": {"app.clock": 63312.47738862, "timestamp": "2024-12-11T15:18:14.172063874Z", "correlation_id": "0858f3ae45994132a32ff20061278172"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733930299756417476, "SeverityNumber": 13, "SeverityText": "WARNING", "InstrumentationScope": "", "Body": "Failed to resolve DNS for vigzgn.appgw.contoso-omniverse.com. The domain might not have propagated yet if this is a new stream. (4, 'Domain name not found')", "Attributes": {"app.clock": 63318.061742544, "timestamp": "2024-12-11T15:18:19.756417476Z", "correlation_id": "7bba0e63e2f74c4aa5b4845b042d93ae"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733930301656341344, "SeverityNumber": 13, "SeverityText": "WARNING", "InstrumentationScope": "", "Body": "Failed to resolve DNS for vigzgn.appgw.contoso-omniverse.com. The domain might not have propagated yet if this is a new stream. (4, 'Domain name not found')", "Attributes": {"app.clock": 63319.961666107, "timestamp": "2024-12-11T15:18:21.656341344Z", "correlation_id": "d82181c8891f435a86fd2e83ceb97e24"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733930301690917641, "SeverityNumber": 17, "SeverityText": "ERROR", "InstrumentationScope": "", "Body": "Failed request to http://resolver/resolve: 404, {\"detail\":\"Failed to resolve usd-viewer-msft, 106.1.0, azurelb-wss: usd-viewer-msft not found within omni-streaming\"}", "Attributes": {"app.clock": 63319.996239185, "timestamp": "2024-12-11T15:18:21.690917641Z", "correlation_id": "d82181c8891f435a86fd2e83ceb97e24"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733930301691075555, "SeverityNumber": 17, "SeverityText": "ERROR", "InstrumentationScope": "", "Body": "Failed to start a new stream. Application, version or profile not found: usd-viewer-msft, 106.1.0 and azurelb-wss are not a valid combination. Failed to resolve", "Attributes": {"app.clock": 63319.996395111, "timestamp": "2024-12-11T15:18:21.691075555Z", "correlation_id": "d82181c8891f435a86fd2e83ceb97e24"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733930309865067787, "SeverityNumber": 13, "SeverityText": "WARNING", "InstrumentationScope": "", "Body": "Failed to resolve DNS for vigzgn.appgw.contoso-omniverse.com. The domain might not have propagated yet if this is a new stream. (4, 'Domain name not found')", "Attributes": {"app.clock": 63328.170394182, "timestamp": "2024-12-11T15:18:29.865067787Z", "correlation_id": "f4c008ddb75146eda30454162faf4bf4"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733930309897619198, "SeverityNumber": 17, "SeverityText": "ERROR", "InstrumentationScope": "", "Body": "Failed request to http://resolver/resolve: 404, {\"detail\":\"Failed to resolve usd-viewer-msft, 106.1.0, azurelb-wss: usd-viewer-msft not found within omni-streaming\"}", "Attributes": {"app.clock": 63328.202941656, "timestamp": "2024-12-11T15:18:29.897619198Z", "correlation_id": "f4c008ddb75146eda30454162faf4bf4"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733930309897783044, "SeverityNumber": 17, "SeverityText": "ERROR", "InstrumentationScope": "", "Body": "Failed to start a new stream. Application, version or profile not found: usd-viewer-msft, 106.1.0 and azurelb-wss are not a valid combination. Failed to resolve", "Attributes": {"app.clock": 63328.203103304, "timestamp": "2024-12-11T15:18:29.897783044Z", "correlation_id": "f4c008ddb75146eda30454162faf4bf4"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733930317014232390, "SeverityNumber": 13, "SeverityText": "WARNING", "InstrumentationScope": "", "Body": "Failed to resolve DNS for vigzgn.appgw.contoso-omniverse.com. The domain might not have propagated yet if this is a new stream. (4, 'Domain name not found')", "Attributes": {"app.clock": 63335.319558144, "timestamp": "2024-12-11T15:18:37.014232390Z", "correlation_id": "c38bf12f294b43169ca7d796ea51e912"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733930323519806190, "SeverityNumber": 13, "SeverityText": "WARNING", "InstrumentationScope": "", "Body": "Failed to resolve DNS for vigzgn.appgw.contoso-omniverse.com. The domain might not have propagated yet if this is a new stream. (4, 'Domain name not found')", "Attributes": {"app.clock": 63341.825135469, "timestamp": "2024-12-11T15:18:43.519806190Z", "correlation_id": "83e62b0794ea48569b57126f73f6ff9c"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733930328701193289, "SeverityNumber": 13, "SeverityText": "WARNING", "InstrumentationScope": "", "Body": "Failed to resolve DNS for vigzgn.appgw.contoso-omniverse.com. The domain might not have propagated yet if this is a new stream. (4, 'Domain name not found')", "Attributes": {"app.clock": 63347.006519318, "timestamp": "2024-12-11T15:18:48.701193289Z", "correlation_id": "202c0b3c3549437cb98d740188f2611b"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733930331017283451, "SeverityNumber": 13, "SeverityText": "WARNING", "InstrumentationScope": "", "Body": "Failed to resolve DNS for vigzgn.appgw.contoso-omniverse.com. The domain might not have propagated yet if this is a new stream. (4, 'Domain name not found')", "Attributes": {"app.clock": 63349.322610617, "timestamp": "2024-12-11T15:18:51.017283451Z", "correlation_id": "f805152f52bb4e6daf96cd237dc06170"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733930338247095768, "SeverityNumber": 13, "SeverityText": "WARNING", "InstrumentationScope": "", "Body": "Failed to resolve DNS for vigzgn.appgw.contoso-omniverse.com. The domain might not have propagated yet if this is a new stream. (4, 'Domain name not found')", "Attributes": {"app.clock": 63356.552421808, "timestamp": "2024-12-11T15:18:58.247095768Z", "correlation_id": "742551afe28842438aceda4a2d168fe1"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733930338717962254, "SeverityNumber": 13, "SeverityText": "WARNING", "InstrumentationScope": "", "Body": "Failed to resolve DNS for vigzgn.appgw.contoso-omniverse.com. The domain might not have propagated yet if this is a new stream. (4, 'Domain name not found')", "Attributes": {"app.clock": 63357.023283958, "timestamp": "2024-12-11T15:18:58.717962254Z", "correlation_id": "c9873a1470774b1ab2becbfe7ae61c76"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733930378180747298, "SeverityNumber": 13, "SeverityText": "WARNING", "InstrumentationScope": "", "Body": "Failed to resolve DNS for vigzgn.appgw.contoso-omniverse.com. The domain might not have propagated yet if this is a new stream. (4, 'Domain name not found')", "Attributes": {"app.clock": 63396.486076355, "timestamp": "2024-12-11T15:19:38.180747298Z", "correlation_id": "9046ee26cd2b46c887ea8df3b8d77876"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733930425826599405, "SeverityNumber": 9, "SeverityText": "INFO", "InstrumentationScope": "", "Body": "Deleting release for 82a67a28-66e2-4f01-bdf8-2a20971f2457", "Attributes": {"app.clock": 63444.131928921, "timestamp": "2024-12-11T15:20:25.826599405Z", "correlation_id": "faead7f69b514e2196db0abef7ec192e"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733930426188964335, "SeverityNumber": 17, "SeverityText": "ERROR", "InstrumentationScope": "", "Body": "Failed request to http://rmcp/api/v1/rmcp/releases: 404, {\"detail\":\"Release with name '82a67a28-66e2-4f01-bdf8-2a20971f2457' not found in namespace 'omni-streaming'\"}", "Attributes": {"app.clock": 63444.494288921, "timestamp": "2024-12-11T15:20:26.188964335Z", "correlation_id": "faead7f69b514e2196db0abef7ec192e"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733930426189136156, "SeverityNumber": 17, "SeverityText": "ERROR", "InstrumentationScope": "", "Body": "Failed to terminate release 82a67a28-66e2-4f01-bdf8-2a20971f2457: error: 404 message: Failed request to http://rmcp/api/v1/rmcp/releases: 404, {\"detail\":\"Release with name '82a67a28-66e2-4f01-bdf8-2a20971f2457' not found in namespace 'omni-streaming'\"}", "Attributes": {"app.clock": 63444.49445796, "timestamp": "2024-12-11T15:20:26.189136156Z", "correlation_id": "faead7f69b514e2196db0abef7ec192e"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733930426189217548, "SeverityNumber": 17, "SeverityText": "ERROR", "InstrumentationScope": "", "Body": "Failed to terminate session 82a67a28-66e2-4f01-bdf8-2a20971f2457: Session not found", "Attributes": {"app.clock": 63444.494536161, "timestamp": "2024-12-11T15:20:26.189217548Z", "correlation_id": "faead7f69b514e2196db0abef7ec192e"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733930426600258022, "SeverityNumber": 13, "SeverityText": "WARNING", "InstrumentationScope": "", "Body": "Failed to resolve DNS for vigzgn.appgw.contoso-omniverse.com. The domain might not have propagated yet if this is a new stream. (4, 'Domain name not found')", "Attributes": {"app.clock": 63444.905582666, "timestamp": "2024-12-11T15:20:26.600258022Z", "correlation_id": "2eb51e409e4f403bbd50d9a52af932be"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733930428037688165, "SeverityNumber": 13, "SeverityText": "WARNING", "InstrumentationScope": "", "Body": "Failed to resolve DNS for vigzgn.appgw.contoso-omniverse.com. The domain might not have propagated yet if this is a new stream. (4, 'Domain name not found')", "Attributes": {"app.clock": 63446.343010664, "timestamp": "2024-12-11T15:20:28.037688165Z", "correlation_id": "2753265bc79d4d9c9c26a9b764f7b9bb"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733930468092523111, "SeverityNumber": 13, "SeverityText": "WARNING", "InstrumentationScope": "", "Body": "Failed to resolve DNS for vigzgn.appgw.contoso-omniverse.com. The domain might not have propagated yet if this is a new stream. (4, 'Domain name not found')", "Attributes": {"app.clock": 63486.397851229, "timestamp": "2024-12-11T15:21:08.092523111Z", "correlation_id": "775f0256588d4973bdfde10c316c388a"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733930481827885929, "SeverityNumber": 9, "SeverityText": "INFO", "InstrumentationScope": "", "Body": "Deleting release for c848a660-d5ee-4c06-9cfc-0502707d97f9", "Attributes": {"app.clock": 63500.133216381, "timestamp": "2024-12-11T15:21:21.827885929Z", "correlation_id": "80b0a64a6c7d46ac84a7bd703a6be7a2"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733930482062232089, "SeverityNumber": 13, "SeverityText": "WARNING", "InstrumentationScope": "", "Body": "Failed to resolve DNS for vigzgn.appgw.contoso-omniverse.com. The domain might not have propagated yet if this is a new stream. (4, 'Domain name not found')", "Attributes": {"app.clock": 63500.367554188, "timestamp": "2024-12-11T15:21:22.062232089Z", "correlation_id": "80b0a64a6c7d46ac84a7bd703a6be7a2"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733930482256233256, "SeverityNumber": 9, "SeverityText": "INFO", "InstrumentationScope": "", "Body": "Successfully terminated session c848a660-d5ee-4c06-9cfc-0502707d97f9", "Attributes": {"app.clock": 63500.561557293, "timestamp": "2024-12-11T15:21:22.256233256Z", "correlation_id": "80b0a64a6c7d46ac84a7bd703a6be7a2"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733930563747912831, "SeverityNumber": 13, "SeverityText": "WARNING", "InstrumentationScope": "", "Body": "Failed to resolve DNS for qwqihy.appgw.contoso-omniverse.com. The domain might not have propagated yet if this is a new stream. (4, 'Domain name not found')", "Attributes": {"app.clock": 63582.053242683, "timestamp": "2024-12-11T15:22:43.747912831Z", "correlation_id": "4d154c44cfcf40db8fd1546bf1180cf8"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733930688933394194, "SeverityNumber": 13, "SeverityText": "WARNING", "InstrumentationScope": "", "Body": "Failed to resolve DNS for qwqihy.appgw.contoso-omniverse.com. The domain might not have propagated yet if this is a new stream. (4, 'Domain name not found')", "Attributes": {"app.clock": 63707.238722324, "timestamp": "2024-12-11T15:24:48.933394194Z", "correlation_id": "39f73138871d4d7ea16f8c29a43e1326"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733930884134342884, "SeverityNumber": 13, "SeverityText": "WARNING", "InstrumentationScope": "", "Body": "Failed to resolve DNS for qwqihy.appgw.contoso-omniverse.com. The domain might not have propagated yet if this is a new stream. (4, 'Domain name not found')", "Attributes": {"app.clock": 63902.439671755, "timestamp": "2024-12-11T15:28:04.134342884Z", "correlation_id": "234842b8401342acb1fb1ad2fd9bd62a"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733930986965592239, "SeverityNumber": 13, "SeverityText": "WARNING", "InstrumentationScope": "", "Body": "Failed to resolve DNS for qwqihy.appgw.contoso-omniverse.com. The domain might not have propagated yet if this is a new stream. (4, 'Domain name not found')", "Attributes": {"app.clock": 64005.270919561, "timestamp": "2024-12-11T15:29:46.965592239Z", "correlation_id": "d5143d72e4164b1a96c9aecabe8ec187"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733931249324817264, "SeverityNumber": 13, "SeverityText": "WARNING", "InstrumentationScope": "", "Body": "Failed to resolve DNS for qwqihy.appgw.contoso-omniverse.com. The domain might not have propagated yet if this is a new stream. (4, 'Domain name not found')", "Attributes": {"app.clock": 64267.630155325, "timestamp": "2024-12-11T15:34:09.324817264Z", "correlation_id": "69623fdfa6514b52ad1eb9f872f1ed79"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733931774673889422, "SeverityNumber": 13, "SeverityText": "WARNING", "InstrumentationScope": "", "Body": "Failed to resolve DNS for qwqihy.appgw.contoso-omniverse.com. The domain might not have propagated yet if this is a new stream. (4, 'Domain name not found')", "Attributes": {"app.clock": 64792.979214907, "timestamp": "2024-12-11T15:42:54.673889422Z", "correlation_id": "970f10c71d23496684cec91f8c3647c4"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733931856322351658, "SeverityNumber": 13, "SeverityText": "WARNING", "InstrumentationScope": "", "Body": "Failed to resolve DNS for qwqihy.appgw.contoso-omniverse.com. The domain might not have propagated yet if this is a new stream. (4, 'Domain name not found')", "Attributes": {"app.clock": 64874.627677679, "timestamp": "2024-12-11T15:44:16.322351658Z", "correlation_id": "dc385a652d254abd9eebd5bd57697640"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733931856352800125, "SeverityNumber": 17, "SeverityText": "ERROR", "InstrumentationScope": "", "Body": "Failed request to http://resolver/resolve: 404, {\"detail\":\"Failed to resolve usd-viewer-msft, 106.1.0, azurelb-wss: usd-viewer-msft not found within omni-streaming\"}", "Attributes": {"app.clock": 64874.658121824, "timestamp": "2024-12-11T15:44:16.352800125Z", "correlation_id": "dc385a652d254abd9eebd5bd57697640"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733931856352962347, "SeverityNumber": 17, "SeverityText": "ERROR", "InstrumentationScope": "", "Body": "Failed to start a new stream. Application, version or profile not found: usd-viewer-msft, 106.1.0 and azurelb-wss are not a valid combination. Failed to resolve", "Attributes": {"app.clock": 64874.658281803, "timestamp": "2024-12-11T15:44:16.352962347Z", "correlation_id": "dc385a652d254abd9eebd5bd57697640"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733931889010718852, "SeverityNumber": 13, "SeverityText": "WARNING", "InstrumentationScope": "", "Body": "Failed to resolve DNS for qwqihy.appgw.contoso-omniverse.com. The domain might not have propagated yet if this is a new stream. (4, 'Domain name not found')", "Attributes": {"app.clock": 64907.316046, "timestamp": "2024-12-11T15:44:49.010718852Z", "correlation_id": "79c5930f2f1c4129844ebc7d45d23eac"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733931889041883242, "SeverityNumber": 17, "SeverityText": "ERROR", "InstrumentationScope": "", "Body": "Failed request to http://resolver/resolve: 404, {\"detail\":\"Failed to resolve usd-viewer-msft, 106.1.0, azurelb-wss: usd-viewer-msft not found within omni-streaming\"}", "Attributes": {"app.clock": 64907.347205639, "timestamp": "2024-12-11T15:44:49.041883242Z", "correlation_id": "79c5930f2f1c4129844ebc7d45d23eac"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733931889042060613, "SeverityNumber": 17, "SeverityText": "ERROR", "InstrumentationScope": "", "Body": "Failed to start a new stream. Application, version or profile not found: usd-viewer-msft, 106.1.0 and azurelb-wss are not a valid combination. Failed to resolve", "Attributes": {"app.clock": 64907.347386122, "timestamp": "2024-12-11T15:44:49.042060613Z", "correlation_id": "79c5930f2f1c4129844ebc7d45d23eac"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733932010062027119, "SeverityNumber": 13, "SeverityText": "WARNING", "InstrumentationScope": "", "Body": "Failed to resolve DNS for qwqihy.appgw.contoso-omniverse.com. The domain might not have propagated yet if this is a new stream. (4, 'Domain name not found')", "Attributes": {"app.clock": 65028.36735487, "timestamp": "2024-12-11T15:46:50.062027119Z", "correlation_id": "9c637a1c2da74d56b19c860efde3235a"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733932386012510560, "SeverityNumber": 9, "SeverityText": "INFO", "InstrumentationScope": "", "Body": "Deleting release for a015fb77-61fc-4abd-8997-8160e7aeafef", "Attributes": {"app.clock": 65404.317838192, "timestamp": "2024-12-11T15:53:06.012510560Z", "correlation_id": "1978fb0ca41b4e81825854d6c9ca2e3e"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733932386270826880, "SeverityNumber": 13, "SeverityText": "WARNING", "InstrumentationScope": "", "Body": "Failed to resolve DNS for qwqihy.appgw.contoso-omniverse.com. The domain might not have propagated yet if this is a new stream. (4, 'Domain name not found')", "Attributes": {"app.clock": 65404.576150894, "timestamp": "2024-12-11T15:53:06.270826880Z", "correlation_id": "1978fb0ca41b4e81825854d6c9ca2e3e"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733932386485428315, "SeverityNumber": 9, "SeverityText": "INFO", "InstrumentationScope": "", "Body": "Successfully terminated session a015fb77-61fc-4abd-8997-8160e7aeafef", "Attributes": {"app.clock": 65404.790752888, "timestamp": "2024-12-11T15:53:06.485428315Z", "correlation_id": "1978fb0ca41b4e81825854d6c9ca2e3e"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733932396612707384, "SeverityNumber": 13, "SeverityText": "WARNING", "InstrumentationScope": "", "Body": "Failed to resolve DNS for qwqihy.appgw.contoso-omniverse.com. The domain might not have propagated yet if this is a new stream. (4, 'Domain name not found')", "Attributes": {"app.clock": 65414.918034554, "timestamp": "2024-12-11T15:53:16.612707384Z", "correlation_id": "044b1886c7944de384c496abf62dd713"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733932471027638511, "SeverityNumber": 13, "SeverityText": "WARNING", "InstrumentationScope": "", "Body": "Failed to resolve DNS for owshht.appgw.contoso-omniverse.com. The domain might not have propagated yet if this is a new stream. (4, 'Domain name not found')", "Attributes": {"app.clock": 65489.332965851, "timestamp": "2024-12-11T15:54:31.027638511Z", "correlation_id": "d2f23d5f49b5494297321bcb6cbdf217"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733932679393076204, "SeverityNumber": 13, "SeverityText": "WARNING", "InstrumentationScope": "", "Body": "Failed to resolve DNS for owshht.appgw.contoso-omniverse.com. The domain might not have propagated yet if this is a new stream. (4, 'Domain name not found')", "Attributes": {"app.clock": 65697.698404312, "timestamp": "2024-12-11T15:57:59.393076204Z", "correlation_id": "25adf39d1d324a89bc1ca9f4050e3e96"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733932773725895254, "SeverityNumber": 13, "SeverityText": "WARNING", "InstrumentationScope": "", "Body": "Failed to resolve DNS for owshht.appgw.contoso-omniverse.com. The domain might not have propagated yet if this is a new stream. (4, 'Domain name not found')", "Attributes": {"app.clock": 65792.031228542, "timestamp": "2024-12-11T15:59:33.725895254Z", "correlation_id": "dfe1e82722d0468b98ccd37a13047de0"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733932822155292036, "SeverityNumber": 13, "SeverityText": "WARNING", "InstrumentationScope": "", "Body": "Failed to resolve DNS for owshht.appgw.contoso-omniverse.com. The domain might not have propagated yet if this is a new stream. (4, 'Domain name not found')", "Attributes": {"app.clock": 65840.460618019, "timestamp": "2024-12-11T16:00:22.155292036Z", "correlation_id": "0492ae36076b432f8654fd284e59008a"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733934125347247190, "SeverityNumber": 13, "SeverityText": "WARNING", "InstrumentationScope": "", "Body": "Failed to resolve DNS for owshht.appgw.contoso-omniverse.com. The domain might not have propagated yet if this is a new stream. (4, 'Domain name not found')", "Attributes": {"app.clock": 67143.652580261, "timestamp": "2024-12-11T16:22:05.347247190Z", "correlation_id": "1edf5863184f470ea831b31ac1fac4c7"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733934140903233772, "SeverityNumber": 9, "SeverityText": "INFO", "InstrumentationScope": "", "Body": "Deleting release for 2fdcaa30-0fda-4de0-8c01-265d88874c96", "Attributes": {"app.clock": 67159.208563566, "timestamp": "2024-12-11T16:22:20.903233772Z", "correlation_id": "4e60dde737a04469b51c46bb0703c411"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733934141187256546, "SeverityNumber": 13, "SeverityText": "WARNING", "InstrumentationScope": "", "Body": "Failed to resolve DNS for owshht.appgw.contoso-omniverse.com. The domain might not have propagated yet if this is a new stream. (4, 'Domain name not found')", "Attributes": {"app.clock": 67159.492580652, "timestamp": "2024-12-11T16:22:21.187256546Z", "correlation_id": "4e60dde737a04469b51c46bb0703c411"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}
+{"Timestamp": 1733934141400964758, "SeverityNumber": 9, "SeverityText": "INFO", "InstrumentationScope": "", "Body": "Successfully terminated session 2fdcaa30-0fda-4de0-8c01-265d88874c96", "Attributes": {"app.clock": 67159.706288576, "timestamp": "2024-12-11T16:22:21.400964758Z", "correlation_id": "4e60dde737a04469b51c46bb0703c411"}, "Resource": {"app.namespace": "nv.svc", "app.name": "nv.svc.streaming", "app.instance.id": "27c53087-14b1-4090-a274-fa06832ece0f", "app.version": "1.8.0"}}

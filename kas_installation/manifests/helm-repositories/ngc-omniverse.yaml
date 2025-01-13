@@ -1,0 +1,9 @@
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: ngc-omniverse
+spec:
+  interval: 5m
+  url: https://helm.ngc.nvidia.com/nvidia/omniverse
+  secretRef:
+    name: ngc-omni-user

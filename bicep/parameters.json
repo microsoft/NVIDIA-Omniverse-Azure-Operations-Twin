@@ -1,0 +1,57 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "location": {
+      "value": "centralus"
+    },
+    "resourceGroupName": {
+      "value": "rg-nvidia"
+    },
+    "vnetAddressPrefix": {
+      "value": "10.2.0.0/16"
+    },
+    "aksSubnetAddressPrefix": {
+      "value": "10.2.0.0/24"
+    },
+    "wafSubnetAddressPrefix": {
+      "value": "10.2.1.0/24"
+    },
+    "apimSubnetAddressPrefix": {
+      "value": "10.2.2.0/24"
+    },
+    "nsgName": {
+      "value": "nsg-nvidia"
+    },
+    "clusterName" : {
+      "value": "aks-nvidia"
+    },
+    "dnsPrefix" : {
+      "value": "aks-nvidia-dns"
+    },
+    "agentPoolVMSize" : {
+      "value": "standard_d2s_v3"
+    },
+    "cachePoolVMSize" : {
+      "value": "standard_d2s_v3"
+    },
+    "gpuPoolVMSize" : {
+      "value": "standard_d2s_v3"
+    },
+    "apimPublisherName" : {
+      "value": "Mike Becker"
+    },
+    "apimPublisherEmail" : {
+      "value": "becker.mike@microsoft.com"
+    },
+    "apimGwHostName": {
+      "value": "apim-gw.beckerobrien.com"
+    },
+    "apimMgmtHostName": {
+      "value": "apim-mgmt.beckerobrien.com"
+    },    
+    "customDomainHostNameSslCertKeyVaultId": {
+      "value": "https://kv-nvidia.vault.azure.net/secrets/beckerobrien/6fe2ab3f26524fae93af49878069e7a8"
+    }
+  }
+}

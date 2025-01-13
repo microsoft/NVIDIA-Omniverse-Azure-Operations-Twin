@@ -1,0 +1,8 @@
+{
+  "applications": {
+    "<app_name>": {
+      "image": "<path>",
+      "tag": "<tag>"
+    }
+  }
+}

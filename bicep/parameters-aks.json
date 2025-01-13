@@ -1,0 +1,30 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "location": {
+      "value": "eastus2"
+    },
+    "resourceGroupName": {
+      "value": "rg-omnistreaming"
+    },
+    "virtualNetworkName": {
+      "value": "vnet-omnistreaming"
+    },
+    "clusterName" : {
+      "value": "aks-omnistreaming"
+    },
+    "dnsPrefix" : {
+      "value": "aks-omnistreaming-dns"
+    },
+    "agentPoolVMSize" : {
+      "value": "standard_d2s_v3"
+    },
+    "cachePoolVMSize" : {
+      "value": "Standard_D8s_v3"
+    },
+    "gpuPoolVMSize" : {
+      "value": "Standard_NV36ads_A10_v5"
+    }
+  }
+}

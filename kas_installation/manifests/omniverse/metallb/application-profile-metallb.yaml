@@ -1,0 +1,51 @@
+apiVersion: omniverse.nvidia.com/v1
+kind: ApplicationProfile
+metadata:
+  name: metallb
+spec:
+  name: metallb
+  description: MetalLB and External-DNS based example 
+  supportedApplications:
+    - name: "usd-viewer"
+      versions: 
+        - "*"
+    - name: "usd-explorer"
+      versions: 
+        - "*"
+  chartMappings:
+    container: streamingKit.image.repository
+    container_version: streamingKit.image.tag
+    name: streamingKit.name
+    hostname: streamkingKit.service.annotations.external-dns.alpha.kubernetes.io/hostname
+  chartValues:
+    global:
+      imagePullSecrets:
+        - name: regcred
+    streamingKit:
+      envoyTLS:
+        enabled: true
+        secretRef: "omni-stream-wildcard-tls"
+      image:
+        repository: nvcr.io/nvidia/omniverse/usd-viewer
+        pullPolicy: Always
+        tag: '0.2.0'
+      sessionId: session_id
+      service:
+        signalingPort: 31000
+        mediaPort: 31001
+        healthPort: 31002
+        annotations:
+          metallb.universe.tf/address-pool: "<replace with address pool>"
+          external-dns.alpha.kubernetes.io/hostname: "<not set - will be set automatically>"
+        type: LoadBalancer
+      name: kit-app
+      resources:
+        limits:
+          cpu: "3"
+          memory: "20Gi"
+          nvidia.com/gpu: "1"
+        requests:
+          nvidia.com/gpu: "1"
+      env:
+        - name: USD_PATH
+          value: "/app/data/Forklift_A/Forklift_A01_PR_V_NVD_01.usd"

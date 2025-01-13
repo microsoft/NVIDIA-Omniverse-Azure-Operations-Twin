@@ -1,0 +1,58 @@
+apiVersion: omniverse.nvidia.com/v1
+kind: ApplicationProfile
+metadata:
+  name: tgb
+spec:
+  name: TargetGroupBinding example profile
+  description: Default profile - Expects AWS TargetGroups and NLBs to be configured
+  supportedApplications:
+    - name: "usd-viewer"
+      versions: 
+        - "*"
+    - name: "usd-explorer"
+      versions: 
+        - "*"
+  chartMappings:
+    container: streamingKit.image.repository
+    container_version: streamingKit.image.tag
+    name: streamingKit.name
+    signaling_arn: streamingKit.aws.targetgroups.signaling
+    media_arn: streamingKit.aws.targetgroups.media
+  chartValues:
+    global:
+      imagePullSecrets:
+        - name: regcred
+    streamingKit:
+      aws:
+        targetgroups:
+          signaling: "<will be set dynamically>"
+          media: "<will be set dynamically>"
+        listeners:
+          signaling: "<will be set dynamically"
+          media: "<will be set dynamically"
+      image:
+        repository: nvcr.io/nvidia/omniverse/usd-viewer
+        pullPolicy: Always
+        tag: '0.2.0'
+      sessionId: session_id
+      service:
+        signalingPort: 31000
+        mediaPort: 31001
+        healthPort: 31002
+        annotations:
+          # Health check
+          service.beta.kubernetes.io/aws-load-balancer-healthcheck-protocol: "HTTP"
+          service.beta.kubernetes.io/aws-load-balancer-healthcheck-port: "8080"
+          service.beta.kubernetes.io/aws-load-balancer-healthcheck-path: "/health"
+        type: 
+      name: kit-app
+      resources:
+        limits:
+          cpu: "3"
+          memory: "20Gi"
+          nvidia.com/gpu: "1"
+        requests:
+          nvidia.com/gpu: "1"
+      env:
+        - name: USD_PATH
+          value: "/app/data/Forklift_A/Forklift_A01_PR_V_NVD_01.usd"

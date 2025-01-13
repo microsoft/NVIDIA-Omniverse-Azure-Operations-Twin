@@ -1,0 +1,35 @@
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: image-prepull-${APPLICATION_NAME}
+  namespace: omni-streaming
+spec:
+  selector:
+    matchLabels:
+      app: image-prepull-${APPLICATION_NAME}
+  template:
+    metadata:
+      labels:
+        app: image-prepull-${APPLICATION_NAME}
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: NodeGroup
+                    operator: In
+                    values:
+                      - gpu
+      imagePullSecrets:
+        - name: regcred
+      containers:
+        - name: image-prepull-${APPLICATION_NAME}
+          image: ${APPLICATION_IMAGE}
+          imagePullPolicy: Always
+          command:
+            - sh
+            - -c
+            - sleep 86400
+      restartPolicy: Always

@@ -1,0 +1,13 @@
+apiVersion: omniverse.nvidia.com/v1
+kind: ApplicationVersion
+metadata:
+  name: usd-viewer-ccci-0.1.0
+  labels:
+    app: usd-viewer-ccci
+    applicationName: usd-viewer-ccci
+    version: '0.1.0'
+spec:
+  helm_chart: ngc-omniverse/kit-appstreaming-session
+  helm_chart_version: '1.8.0'
+  container: acromnistreaming.azurecr.io/usd-viewer-ccci
+  container_version: '0.1.0'

@@ -1,0 +1,43 @@
+apiVersion: omniverse.nvidia.com/v1
+kind: ApplicationProfile
+metadata:
+  name: default
+spec:
+  name: Default profile
+  description: Updated memory and CPU settings.
+  supportedApplications:
+    - name: "usd-viewer"
+      versions: 
+        - "*"
+  chartMappings:
+    container: streamingKit.image.repository
+    container_version: streamingKit.image.tag
+    name: streamingKit.name
+  chartValues:
+    global:
+      imagePullSecrets:
+        - name: regcred
+    streamingKit:
+      image:
+        repository: nvcr.io/nvidia/omniverse/usd-viewer
+        pullPolicy: Always
+        tag: '0.2.0'
+      sessionId: session_id
+      name: kit-app
+      resources:
+        limits:
+          cpu: "3"
+          memory: "20Gi"
+          nvidia.com/gpu: "1"
+        requests:
+          nvidia.com/gpu: "1"
+      env:
+        - name: USD_PATH
+          value: "/app/data/Forklift_A/Forklift_A01_PR_V_NVD_01.usd"
+      startupProbe:
+        failureThreshold: 90
+        httpGet:
+          path: /v1/streaming/ready
+          port: 8011
+        initialDelaySeconds: 20
+        periodSeconds: 10

@@ -1,0 +1,26 @@
+nodeAffinityPreset:
+  type: hard
+  key: kubernetes.azure.com/mode
+  values:
+  - system
+ingressClassResource:
+  name: internal-nginx
+  controllerClass: "k8s.io/internal-ingress-nginx"
+config:
+  proxy-body-size: 0m
+  proxy-request-buffering: "off"
+  ssl-ciphers: HIGH:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!MD5:!PSK:@SECLEVEL=1
+  ssl-protocols: TLSv1.2 TLSv1.3
+  use-http2: "false"
+metrics:
+  enabled: false
+  serviceMonitor:
+    enabled: false
+replicaCount: 1
+service:
+  annotations:
+    service.beta.kubernetes.io/azure-load-balancer-health-probe-request-path: /healthz
+    service.beta.kubernetes.io/azure-load-balancer-resource-group: <resource-group-name>
+    service.beta.kubernetes.io/azure-load-balancer-internal-subnet: subnet-aks
+    service.beta.kubernetes.io/azure-load-balancer-internal: "true"
+  externalTrafficPolicy: Local

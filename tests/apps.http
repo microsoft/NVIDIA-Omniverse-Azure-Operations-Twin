@@ -1,0 +1,2 @@
+GET https://appgw.contoso-omniverse.com/applications/cfg/apps
+accept: application/json

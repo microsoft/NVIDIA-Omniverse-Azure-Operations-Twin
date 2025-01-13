@@ -1,0 +1,52 @@
+# This is a sample values file that can be used for local development deployment (on a local k8s cluster, minikube, k3d, kind, etc)
+# To create the ImagePullSecret (so that k8s can pull from private registries)
+# For example, to create a dockre-registry secret for nvcr.io, using a TOKEN taken from NGC.
+#
+# kubectl create secret docker-registry \
+#  registry-secret \
+#  --namespace <<NAMESPACE>> \
+#  --docker-server="nvcr.io" \
+#  --docker-username='$oauthtoken' \
+#  --docker-password=${NGC_TOKEN}
+
+global:
+
+  # -- Global image pull secrets used within the services.
+  imagePullSecrets:
+   - name: regcred
+
+  ingress:
+    annotations:
+      alb.ingress.kubernetes.io/load-balancer-name: <replace with load balancer name>
+      alb.ingress.kubernetes.io/group.name: <replace with load balancer group name>
+      alb.ingress.kubernetes.io/healthcheck-path: /status
+      alb.ingress.kubernetes.io/inbound-cidrs: 10.0.1.0/24,10.0.2.0/24,10.0.3.0/24
+      # alb.ingress.kubernetes.io/inbound-cidrs: 216.228.125.128/30,216.228.127.128/30,216.228.112.20/30,216.228.112.24/30,216.228.125.131/32,206.223.160.26/32
+      # alb.ingress.kubernetes.io/scheme: internet-facing
+      alb.ingress.kubernetes.io/scheme: internal
+      alb.ingress.kubernetes.io/target-type: ip
+      kubernetes.io/ingress.class: alb
+
+applications:
+  ingress:
+    path: "/applications"
+    pathType: Prefix 
+    enabled: true
+
+  serviceConfig:
+    root_path: "/applications"
+    prefix_url: "cfg/apps"
+
+  image:
+    repository: "nvcr.io/nvidia/omniverse/kit-appstreaming-applications"
+    pullPolicy: Always
+    tag: 1.8.0
+
+  applications: {}
+  profiles: {} 
+
+  monitoring:
+    # -- Enables the creation of ServiceMonitor resource.
+    enabled: true
+    # -- Prometheus namespace.
+    prometheusNamespace: "omni-streaming"

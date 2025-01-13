@@ -1,0 +1,213 @@
+apiVersion: omniverse.nvidia.com/v1
+kind: ApplicationProfile
+metadata:
+  name: tgb-auth
+spec:
+  name: TargetGroupBinding with authorisation example profile
+  description: Default profile - Expects AWS TargetGroups and NLBs to be configured
+  supportedApplications:
+    - name: "usd-viewer"
+      versions: 
+        - "*"
+    - name: "usd-explorer"
+      versions: 
+        - "*"
+  chartMappings:
+    container: streamingKit.image.repository
+    container_version: streamingKit.image.tag
+    name: streamingKit.name
+    signaling_arn: streamingKit.aws.targetgroups.signaling
+    media_arn: streamingKit.aws.targetgroups.media
+  chartValues:
+    global:
+      imagePullSecrets:
+        - name: regcred
+    streamingKit:
+      envoy:
+        config: |
+          node:
+            id: node0
+            cluster: envoy-cluster
+          static_resources:
+            listeners:
+            - name: webrtc_signaling_listener
+              address:
+                socket_address:
+                  address: 0.0.0.0
+                  port_value: 49200
+              filter_chains:
+              - filters:
+                - name: envoy.filters.network.http_connection_manager
+                  typed_config:
+                    "@type": type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager
+                    stat_prefix: signaling_http
+                    codec_type: AUTO
+                    upgrade_configs:
+                    - upgrade_type: websocket
+                    route_config:
+                      name: local_route
+                      virtual_hosts:
+                      - name: local_service
+                        domains: ["*"]
+                        routes:
+                        - match:
+                            prefix: "/"
+                          route:
+                            cluster: service_cluster
+                    http_filters:
+                    - name: envoy.filters.http.lua
+                      typed_config:
+                        "@type": type.googleapis.com/envoy.extensions.filters.http.lua.v3.Lua
+                        inline_code: |
+                          function envoy_on_request(request_handle)
+                            local headers = request_handle:headers()
+                            local sec_websocket_protocol = headers:get("Sec-WebSocket-Protocol")
+    
+                            request_handle:logInfo("Lua filter: Checking Sec-WebSocket-Protocol header")
+                            if sec_websocket_protocol == nil then
+                              local checked = request_handle:streamInfo():dynamicMetadata():get("lua_checked")
+                              if checked == nil then
+                                request_handle:streamInfo():dynamicMetadata():set("lua_checked", "true")
+                                request_handle:respond({[":status"] = "403"}, "Forbidden")
+                                return
+                              end
+                            else
+                              -- Correctly match and extract x-nv-sessionid and Authorization values
+                              local sessionid, authorization = sec_websocket_protocol:match("x%-nv%-sessionid%.([%w%-]+)%-Authorization%.Bearer%-(.+)")
+                              if sessionid and authorization then
+                                headers:add("x-nv-sessionid", sessionid)
+                                headers:add("Authorization", "Bearer " .. authorization)
+                                request_handle:logInfo("Lua filter: Extracted x-nv-sessionid and Authorization headers")
+                              else
+                                request_handle:logInfo("Lua filter: Failed to extract x-nv-sessionid and Authorization headers")
+                                request_handle:respond({[":status"] = "403"}, "Forbidden")
+                                return
+                              end
+                            end
+                          end
+                    - name: envoy.filters.http.jwt_authn
+                      typed_config:
+                        "@type": type.googleapis.com/envoy.extensions.filters.http.jwt_authn.v3.JwtAuthentication
+                        providers:
+                          keycloak:
+                            issuer: "<replace with issuer>
+                            remote_jwks:
+                              http_uri:
+                                uri: "<repalce with jwks URL>"
+                                cluster: keycloak_cluster
+                                timeout: 60s
+                              cache_duration:
+                                seconds: 1
+                        rules:
+                        - match:
+                            prefix: "/"
+                          requires:
+                            provider_name: "keycloak"
+                    - name: envoy.filters.http.router
+                    access_log:
+                      - name: envoy.access_loggers.stream
+                        typed_config:
+                          "@type": type.googleapis.com/envoy.extensions.access_loggers.stream.v3.StdoutAccessLog
+                          log_format:
+                            text_format: |
+                              [START_TIME: %START_TIME%]
+                              REQUEST_METHOD: %REQ(:METHOD)%
+                              PATH: %REQ(X-ENVOY-ORIGINAL-PATH?:PATH)%
+                              PROTOCOL: %PROTOCOL%
+                              RESPONSE_CODE: %RESPONSE_CODE%
+                              RESPONSE_FLAGS: %RESPONSE_FLAGS%
+                              BYTES_RECEIVED: %BYTES_RECEIVED%
+                              BYTES_SENT: %BYTES_SENT%
+                              DURATION: %DURATION%
+                              UPSTREAM_HOST: %UPSTREAM_HOST%
+                              DOWNSTREAM_REMOTE_ADDRESS: %DOWNSTREAM_REMOTE_ADDRESS%
+            - name: health_listener
+              address:
+                socket_address:
+                  address: 0.0.0.0
+                  port_value: 8080
+              filter_chains:
+              - filters:
+                - name: envoy.filters.network.http_connection_manager
+                  typed_config:
+                    "@type": type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager
+                    stat_prefix: health_check
+                    codec_type: AUTO
+                    route_config:
+                      name: local_route
+                      virtual_hosts:
+                      - name: local_service
+                        domains: ["*"]
+                        routes:
+                        - match:
+                            prefix: "/health"
+                          direct_response:
+                            status: 200
+                            body:
+                              inline_string: "OK"
+                    http_filters:
+                    - name: envoy.filters.http.router
+            clusters:
+            - name: service_cluster
+              connect_timeout: 0.25s
+              type: STATIC
+              lb_policy: ROUND_ROBIN
+              load_assignment:
+                cluster_name: service_cluster
+                endpoints:
+                - lb_endpoints:
+                  - endpoint:
+                      address:
+                        socket_address:
+                          address: 127.0.0.1
+                          port_value: 49100  # Forwarding to the stream
+            - name: keycloak_cluster
+              connect_timeout: 0.25s
+              type: STRICT_DNS
+              lb_policy: ROUND_ROBIN
+              load_assignment:
+                cluster_name: keycloak_cluster
+                endpoints:
+                - lb_endpoints:
+                  - endpoint:
+                      address:
+                        socket_address:
+                          address: <replace with FQDN of keycloak server>
+                          port_value: 443
+              transport_socket:
+                name: envoy.transport_sockets.tls
+                typed_config:
+                  "@type": type.googleapis.com/envoy.extensions.transport_sockets.tls.v3.UpstreamTlsContext
+      aws:
+        targetgroups:
+          signaling: "<not set>"
+          media: "<not set>"
+        listeners:
+          signaling: "<not set>"
+          media: "<not set>"
+      image:
+        repository: nvcr.io/nvidia/omniverse/usd-viewer
+        pullPolicy: Always
+        tag: '0.2.0'
+      sessionId: session_id
+      service:
+        signalingPort: 31000
+        mediaPort: 31001
+        healthPort: 31002
+        annotations:
+          # Health check
+          service.beta.kubernetes.io/aws-load-balancer-healthcheck-protocol: "HTTP"
+          service.beta.kubernetes.io/aws-load-balancer-healthcheck-port: "8080"
+          service.beta.kubernetes.io/aws-load-balancer-healthcheck-path: "/health"
+        type: 
+      name: kit-app
+      resources:
+        limits:
+          cpu: "3"
+          memory: "20Gi"
+          nvidia.com/gpu: "1"
+        requests:
+          nvidia.com/gpu: "1"
+      env:
+        - name: USD_PATH
+          value: "/app/data/Forklift_A/Forklift_A01_PR_V_NVD_01.usd"

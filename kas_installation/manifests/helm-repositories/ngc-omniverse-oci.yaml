@@ -1,0 +1,10 @@
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: ngc-omniverse-oci
+spec:
+  type: oci
+  interval: 5m
+  url: "<replace with OCI compatible registry>" 
+  secretRef:
+    name: <replace with secret for OCI registry>

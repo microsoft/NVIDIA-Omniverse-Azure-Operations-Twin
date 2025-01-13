@@ -1,0 +1,51 @@
+# This values file will configure the streaming session service to use the Generic CSP Backend class.
+# This set up will create a new load balancer service for each stream. 
+
+global:
+
+  ingress:
+    annotations:
+      alb.ingress.kubernetes.io/load-balancer-name: <replace with load balancer name>
+      alb.ingress.kubernetes.io/group.name: <replace with load balancer group name>
+      alb.ingress.kubernetes.io/healthcheck-path: /status
+      alb.ingress.kubernetes.io/inbound-cidrs: 10.0.1.0/24,10.0.2.0/24,10.0.3.0/24
+      # alb.ingress.kubernetes.io/inbound-cidrs: 216.228.125.128/30,216.228.127.128/30,216.228.112.20/30,216.228.112.24/30,216.228.125.131/32,206.223.160.26/32
+      # alb.ingress.kubernetes.io/scheme: internet-facing
+      alb.ingress.kubernetes.io/scheme: internal
+      alb.ingress.kubernetes.io/target-type: ip
+      kubernetes.io/ingress.class: alb
+
+  # Assuming a registry secret is available within the namespace called regred
+  imagePullSecrets:
+   - name: regcred
+
+streaming:
+  ingress:
+    path: "/"
+    pathType: Prefix
+    enabled: true
+
+  serviceConfig:
+    root_path: ""
+    prefix_url: "/streaming"
+
+    session_namespace: "omni-streaming"
+    session_capacity: 3
+    backend_rmcp_url: "http://rmcp/rmcp"
+    backend_applications_resolver_url: "http://resolver"
+
+    backend_csp_cls: "nv.svc.streaming._csp.Generic"
+    backend_csp_args:
+      enable_wss: true
+      base_domain: "<replace with base domain, for example stream.acme.org"
+
+  image:
+    repository: "nvcr.io/nvidia/omniverse/kit-appstreaming-manager"
+    pullPolicy: Always
+    tag: 1.8.0
+
+  monitoring:
+    # -- Enables the creation of ServiceMonitor resource.
+    enabled: true
+    # -- Prometheus namespace.
+    prometheusNamespace: "omni-streaming"

@@ -1,0 +1,156 @@
+apiVersion: omniverse.nvidia.com/v1
+kind: ApplicationProfile
+metadata:
+  name: tgb-auth-wait-pending
+  namespace: omni-streaming
+spec:
+  chartMappings:
+    container: streamingKit.image.repository
+    container_version: streamingKit.image.tag
+    media_arn: streamingKit.aws.targetgroups.media
+    name: streamingKit.name
+    signaling_arn: streamingKit.aws.targetgroups.signaling
+  chartValues:
+    global:
+      imagePullSecrets:
+      - name: regcred
+    streamingKit:
+      aws:
+        listeners:
+          media: <not set>
+          signaling: <not set>
+        targetgroups:
+          media: <not set>
+          signaling: <not set>
+      env:
+      - name: USD_PATH
+        value: /app/data/Forklift_A/Forklift_A01_PR_V_NVD_01.usd
+      envoy:
+        config: |
+          node:
+            id: node0
+            cluster: envoy-cluster
+          static_resources:
+            listeners:
+            - name: webrtc_signaling_listener
+              address:
+                socket_address:
+                  address: 0.0.0.0
+                  port_value: 49200
+              filter_chains:
+              - filters:
+                - name: envoy.filters.network.http_connection_manager
+                  typed_config:
+                    "@type": type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager
+                    stat_prefix: signaling_http
+                    codec_type: AUTO
+                    upgrade_configs:
+                    - upgrade_type: websocket
+                    route_config:
+                      name: local_route
+                      virtual_hosts:
+                      - name: local_service
+                        domains: ["*"]
+                        routes:
+                        - match:
+                            prefix: "/"
+                          route:
+                            cluster: service_cluster
+                    http_filters:
+                    - name: envoy.filters.http.router
+                    access_log:
+                      - name: envoy.access_loggers.stream
+                        typed_config:
+                          "@type": type.googleapis.com/envoy.extensions.access_loggers.stream.v3.StdoutAccessLog
+                          log_format:
+                            text_format: |
+                              [START_TIME: %START_TIME%]
+                              REQUEST_METHOD: %REQ(:METHOD)%
+                              PATH: %REQ(X-ENVOY-ORIGINAL-PATH?:PATH)%
+                              PROTOCOL: %PROTOCOL%
+                              RESPONSE_CODE: %RESPONSE_CODE%
+                              RESPONSE_FLAGS: %RESPONSE_FLAGS%
+                              BYTES_RECEIVED: %BYTES_RECEIVED%
+                              BYTES_SENT: %BYTES_SENT%
+                              DURATION: %DURATION%
+                              UPSTREAM_HOST: %UPSTREAM_HOST%
+                              DOWNSTREAM_REMOTE_ADDRESS: %DOWNSTREAM_REMOTE_ADDRESS%
+            - name: health_listener
+              address:
+                socket_address:
+                  address: 0.0.0.0
+                  port_value: 8080
+              filter_chains:
+              - filters:
+                - name: envoy.filters.network.http_connection_manager
+                  typed_config:
+                    "@type": type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager
+                    stat_prefix: health_check
+                    codec_type: AUTO
+                    route_config:
+                      name: local_route
+                      virtual_hosts:
+                      - name: local_service
+                        domains: ["*"]
+                        routes:
+                        - match:
+                            prefix: "/health"
+                          direct_response:
+                            status: 200
+                            body:
+                              inline_string: "OK"
+                    http_filters:
+                    - name: envoy.filters.http.router
+            clusters:
+            - name: service_cluster
+              connect_timeout: 0.25s
+              type: STATIC
+              lb_policy: ROUND_ROBIN
+              load_assignment:
+                cluster_name: service_cluster
+                endpoints:
+                - lb_endpoints:
+                  - endpoint:
+                      address:
+                        socket_address:
+                          address: 127.0.0.1
+                          port_value: 49100  # Forwarding to the stream
+      image:
+        pullPolicy: Always
+        repository: nvcr.io/omniverse/prerel/usd-viewer
+        tag: 0.2.0
+      name: kit-app
+      podAnnotations:
+        nvidia.omniverse.ovas.pod.maxPendingTime: "30"
+      resources:
+        limits:
+          cpu: "3"
+          memory: 20Gi
+          nvidia.com/gpu: "1"
+        requests:
+          nvidia.com/gpu: "1"
+      service:
+        annotations:
+          service.beta.kubernetes.io/aws-load-balancer-healthcheck-path: /health
+          service.beta.kubernetes.io/aws-load-balancer-healthcheck-port: "8080"
+          service.beta.kubernetes.io/aws-load-balancer-healthcheck-protocol: HTTP
+        healthPort: 31002
+        mediaPort: 31001
+        signalingPort: 31000
+        type: null
+      sessionId: session_id
+      shader_cache:
+        enabled: false
+      startupProbe:
+        failureThreshold: 90
+        httpGet:
+          path: /v1/streaming/ready
+          port: 8011
+        initialDelaySeconds: 20
+        periodSeconds: 10
+  description: Default profile - Uses nvcf-probe to check if the application is ready
+  name: TargetGroupBinding with authorisation and nvcf-probe example profile
+  supportedApplications:
+  - name: usd-viewer
+    versions:
+    - 0.3.0-pending

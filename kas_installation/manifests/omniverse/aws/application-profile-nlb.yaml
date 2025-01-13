@@ -1,0 +1,52 @@
+apiVersion: omniverse.nvidia.com/v1
+kind: ApplicationProfile
+metadata:
+  name: nlb
+spec:
+  name: NLB example profile
+  description: Default profile - uses an AWS NLB per stream 
+  supportedApplications:
+    - name: "usd-viewer"
+      versions: 
+        - "*"
+  chartMappings:
+    container: streamingKit.image.repository
+    container_version: streamingKit.image.tag
+    name: streamingKit.name
+  chartValues:
+    global:
+      imagePullSecrets:
+        - name: regcred
+    streamingKit:
+      image:
+        repository: nvcr.io/nvidia/omniverse/usd-viewer
+        pullPolicy: Always
+        tag: '0.2.0'
+      sessionId: session_id
+      service:
+        signalingPort: 31000
+        mediaPort: 31001
+        healthPort: 31002
+        annotations:
+          # NLB configuration
+          service.beta.kubernetes.io/aws-load-balancer-type: "external"
+          service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: "ip"
+          service.beta.kubernetes.io/aws-load-balancer-scheme: "internet-facing"
+          service.beta.kubernetes.io/load-balancer-source-ranges: "<replace with allowed ranges>"
+          service.beta.kubernetes.io/aws-load-balancer-attributes: "load_balancing.cross_zone.enabled=true"
+          # Health check
+          service.beta.kubernetes.io/aws-load-balancer-healthcheck-protocol: "HTTP"
+          service.beta.kubernetes.io/aws-load-balancer-healthcheck-port: "8080"
+          service.beta.kubernetes.io/aws-load-balancer-healthcheck-path: "/health"
+        type: LoadBalancer
+      name: kit-app
+      resources:
+        limits:
+          cpu: "3"
+          memory: "20Gi"
+          nvidia.com/gpu: "1"
+        requests:
+          nvidia.com/gpu: "1"
+      env:
+        - name: USD_PATH
+          value: "/app/data/Forklift_A/Forklift_A01_PR_V_NVD_01.usd"

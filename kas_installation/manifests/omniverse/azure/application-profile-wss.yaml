@@ -1,0 +1,135 @@
+apiVersion: omniverse.nvidia.com/v1
+kind: ApplicationProfile
+metadata:
+  name: azurelb-wss
+spec:
+  name: AzureLB example profile
+  description: Default profile - uses an AzureLB per stream
+  supportedApplications:
+    - name: "usd-viewer-ccci"
+      versions:
+        - '*'
+  chartMappings:
+    container: streamingKit.image.repository
+    container_version: streamingKit.image.tag
+    name: streamingKit.name
+  chartValues:
+    global:
+      imagePullSecrets:
+        - name: myregcred
+    streamingKit:
+      image:
+        repository: acromnistreaming.azurecr.io/usd-viewer-ccci
+        pullPolicy: Always
+        tag: '0.1.0'
+      envoy:
+        enabled: true
+        secretRef: stream-tls-secret
+        tls:
+          enabled: true
+          secretRef: stream-tls-secret
+        sessionId: session_id
+        extraVolumeMounts:
+          - name: stream-tls-secret-volume
+            mountPath: "/etc/envoy/tls"
+            readOnly: true
+        extraVolumes:
+          - name: stream-tls-secret-volume
+            secret:
+              secretName: stream-tls-secret
+        config: |
+          static_resources:
+            listeners:
+            - name: webrtc_signaling_listener
+              address:
+                socket_address:
+                  address: 0.0.0.0
+                  port_value: 49200
+              filter_chains:
+              - transport_socket:
+                  name: envoy.transport_sockets.tls
+                  typed_config:
+                    "@type": type.googleapis.com/envoy.extensions.transport_sockets.tls.v3.DownstreamTlsContext
+                    common_tls_context:
+                      tls_certificates:
+                        - certificate_chain: { filename: "/etc/envoy/tls/tls.crt" }
+                          private_key: { filename: "/etc/envoy/tls/tls.key" }
+                filters:
+                - name: envoy.filters.network.tcp_proxy
+                  typed_config:
+                    "@type": type.googleapis.com/envoy.extensions.filters.network.tcp_proxy.v3.TcpProxy
+                    stat_prefix: tcp
+                    cluster: service_cluster
+                    access_log:
+                      - name: envoy.access_loggers.stream
+                        typed_config:
+                          "@type": type.googleapis.com/envoy.extensions.access_loggers.stream.v3.StdoutAccessLog
+                          log_format:
+                            text_format: "[%START_TIME%] \"%PROTOCOL%\" connection from %DOWNSTREAM_REMOTE_ADDRESS% to %UPSTREAM_HOST%\n"
+            - name: health_listener
+              address:
+                socket_address:
+                  address: 0.0.0.0
+                  port_value: 8080
+              filter_chains:
+              - filters:
+                - name: envoy.filters.network.http_connection_manager
+                  typed_config:
+                    "@type": type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager
+                    stat_prefix: health_check
+                    codec_type: AUTO
+                    route_config:
+                      name: local_route
+                      virtual_hosts:
+                      - name: local_service
+                        domains: ["*"]
+                        routes:
+                        - match:
+                            prefix: "/health"
+                          direct_response:
+                            status: 200
+                            body:
+                              inline_string: "OK"
+                    http_filters:
+                    - name: envoy.filters.http.router
+            clusters:
+            - name: service_cluster
+              connect_timeout: 0.25s
+              type: STATIC
+              lb_policy: ROUND_ROBIN
+              load_assignment:
+                cluster_name: service_cluster
+                endpoints:
+                - lb_endpoints:
+                  - endpoint:
+                      address:
+                        socket_address:
+                          address: 127.0.0.1
+                          port_value: 49100  # Forwarding to the stream
+      service:
+        signalingPort: 31000
+        mediaPort: 31001
+        healthPort: 31002
+        annotations:
+          # NLB configuration
+          service.beta.kubernetes.io/azure-load-balancer-internal: "false"
+          external-dns.alpha.kubernetes.io/ttl: "5"
+          # Security stuff - may need to specify this in `loadBalancerSourceRanges`
+          # service.beta.kubernetes.io/load-balancer-source-ranges: 192.0.2.0/24, 198.51.100.0/24, 203.0.113.0/24
+          # Health check
+          service.beta.kubernetes.io/port_8080_health-probe_protocol: HTTP
+          service.beta.kubernetes.io/port_8080_health-probe_port: "8080"
+          service.beta.kubernetes.io/port_8080_health-probe_request-path: /health
+        type: LoadBalancer
+      name: kit-app
+      resources:
+        limits:
+          cpu: "3"
+          memory: 20Gi
+          nvidia.com/gpu: "1"
+        requests:
+          nvidia.com/gpu: "1"
+      env:
+        - name: USD_PATH
+          value: "/app/samples/stage01.usd"
+      

@@ -1,0 +1,59 @@
+# This is a sample values file that can be used for local development deployment (on a local k8s cluster, minikube, k3d, kind, etc)
+# To create the ImagePullSecret (so that k8s can pull from private registries)
+# For example, to create a dockre-registry secret for nvcr.io, using a TOKEN taken from NGC.
+#
+# kubectl create secret docker-registry \
+#  registry-secret \
+#  --namespace <<NAMESPACE>> \
+#  --docker-server="nvcr.io" \
+#  --docker-username='$oauthtoken' \
+#  --docker-password=${NGC_TOKEN}
+
+global:
+  # Assuming a registry secret is available within the namespace called regred
+  imagePullSecrets:
+    - name: regcred
+  ingress:
+    host: api.contoso-omniverse.com
+    className: internal-nginx
+    annotations:
+      kubernetes.io/ingress.class: "internal-nginx"
+      nginx.ingress.kubernetes.io/rewrite-target: /$2
+      # CORS-related annotations
+      nginx.ingress.kubernetes.io/enable-cors: "true"
+      nginx.ingress.kubernetes.io/cors-allow-origin: "*"
+      nginx.ingress.kubernetes.io/cors-allow-methods: "GET, PUT, POST, DELETE, PATCH, OPTIONS"
+      nginx.ingress.kubernetes.io/cors-allow-headers: "DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range,Authorization,Accept,Origin"
+      nginx.ingress.kubernetes.io/cors-expose-headers: "Content-Length,Content-Range"
+      nginx.ingress.kubernetes.io/cors-allow-credentials: "true"
+      nginx.ingress.kubernetes.io/cors-max-age: "86400"
+      # SSL/TLS settings
+      nginx.ingress.kubernetes.io/ssl-redirect: "true"
+      nginx.ingress.kubernetes.io/hsts: "true"
+      nginx.ingress.kubernetes.io/hsts-max-age: "31536000"
+      nginx.ingress.kubernetes.io/hsts-include-subdomains: "true"
+streaming:
+  ingress:
+    path: "/streaming(/|$)(.*)"
+    pathType: ImplementationSpecific
+    enabled: true
+  serviceConfig:
+    root_path: /streaming
+    prefix_url: ""
+    session_namespace: omni-streaming
+    session_capacity: 3
+    backend_rmcp_url: http://rmcp/api/v1/rmcp
+    backend_applications_resolver_url: http://resolver
+    backend_csp_cls: "nv.svc.streaming._csp.Generic"
+    backend_csp_args:
+      enable_wss: true
+      base_domain: "appgw.contoso-omniverse.com"
+  image:
+    repository: "nvcr.io/nvidia/omniverse/kit-appstreaming-manager"
+    pullPolicy: Always
+    tag: 1.8.0
+  monitoring:
+    # -- Enables the creation of ServiceMonitor resource.
+    enabled: false
+    # -- Prometheus namespace.
+    prometheusNamespace: omni-streaming

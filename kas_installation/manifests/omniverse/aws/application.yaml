@@ -1,0 +1,10 @@
+apiVersion: omniverse.nvidia.com/v1
+kind: Application
+metadata:
+  name: usd-viewer
+  labels:
+    USD: "true"
+    visualisation: "true"
+spec:
+  name: Omniverse USD Viewer
+  description: View Universal Scene Description files.

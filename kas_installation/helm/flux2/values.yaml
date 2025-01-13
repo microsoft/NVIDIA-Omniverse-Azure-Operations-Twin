@@ -1,0 +1,34 @@
+helmController:
+  create: true
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: agentpool
+            operator: In
+            values:
+            - agentpoolds
+imageAutomationController:
+  create: false
+kustomizeController:
+  create: false
+notificationController:
+  create: false
+imageReflectionController:
+  create: false
+policies:
+  create: false
+rbac:
+  create: true
+sourceController:
+  create: true
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: agentpool
+            operator: In
+            values:
+            - agentpoolds
