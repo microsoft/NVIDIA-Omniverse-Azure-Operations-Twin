@@ -1,16 +1,8 @@
 targetScope='resourceGroup'
 
 param location string
-param apimPublisherName string
-param apimPublisherEmail string
-param apimGwHostName string
-param apimMgmtHostName string
 param virtualNetworkName string
-param serviceUrl string
-param apiManagementServiceName string
 param applicationGatewayName string
-param apimSku string = 'Developer'
-param apimSkuCount int = 1
 param appGwPublicIpName string = 'pip-${applicationGatewayName}'
 @description('Minimum instance count for Application Gateway')
 param minCapacity int = 2
@@ -19,7 +11,6 @@ param minCapacity int = 2
 param maxCapacity int = 3
 param cookieBasedAffinity string = 'Disabled'
 param appGwSslCertName string 
-param apimSslCertName string 
 param appGwHostName string 
 param keyVaultName string
 
@@ -29,7 +20,7 @@ param agentNodeCount int = 3
 
 param cacheNodeCount int = 1
 
-param gpuNodeCount int = 1
+param gpuNodeCount int = 2
 
 param agentMaxPods int = 30
 
@@ -52,8 +43,10 @@ param webAppCNAME string
 
 param externalDnsManagedIdentityName string
 
+param apiFqdn string
+param apiProbePath string = '/streaming/docs'
+
 var appGwSslCertSecretName = replace(appGwSslCertName, '.', '-')
-var apimSslCertSecretName = replace(apimSslCertName, '.', '-')
 
 var appgwResourceId = resourceId('Microsoft.Network/applicationGateways', '${applicationGatewayName}')
 var frontendAgwCertificateId = '${appgwResourceId}/sslCertificates/${appGwSslCertName}'
@@ -68,10 +61,6 @@ resource vnet 'Microsoft.Network/virtualNetworks@2023-09-01' existing = {
 
 resource appGwMsi 'Microsoft.ManagedIdentity/userAssignedIdentities@2023-07-31-preview' existing = {
   name: 'msi-appgw'
-}
-
-resource apimMsi 'Microsoft.ManagedIdentity/userAssignedIdentities@2023-07-31-preview' existing = {
-  name: 'msi-apim'
 }
 
 resource keyVault 'Microsoft.KeyVault/vaults@2024-04-01-preview' existing = {
@@ -193,12 +182,12 @@ resource applicationGateway 'Microsoft.Network/applicationGateways@2020-06-01' =
     ]
     backendAddressPools: [
       {
-        name: 'appGatewayBackendPool'
+        name: 'apiPool'
         properties: {
           
           backendAddresses: [
             {
-              fqdn: apimGwHostName
+              fqdn: apiFqdn
             }
           ]
         }
@@ -206,15 +195,15 @@ resource applicationGateway 'Microsoft.Network/applicationGateways@2020-06-01' =
     ]
     backendHttpSettingsCollection: [
       {
-        name: 'https'
+        name: 'Http'
         properties: {
-          port: 443
-          protocol: 'Https'
+          port: 80
+          protocol: 'Http'
           cookieBasedAffinity: cookieBasedAffinity
           requestTimeout: 20
           pickHostNameFromBackendAddress: true
           probe: { 
-            id: resourceId('Microsoft.Network/applicationGateways/probes', applicationGatewayName, 'appGatewayProbe')
+            id: resourceId('Microsoft.Network/applicationGateways/probes', applicationGatewayName, 'apiProbe')
           }
         }
       }
@@ -267,7 +256,7 @@ resource applicationGateway 'Microsoft.Network/applicationGateways@2020-06-01' =
     ]
     redirectConfigurations: [
       {
-        name: 'redirectConfig'
+        name: 'http'
         properties: {
           redirectType: 'Permanent'
           targetListener: {
@@ -292,11 +281,8 @@ resource applicationGateway 'Microsoft.Network/applicationGateways@2020-06-01' =
           httpListener: {
             id: resourceId('Microsoft.Network/applicationGateways/httpListeners', applicationGatewayName, 'http')
           }
-          backendAddressPool: {
-            id: resourceId('Microsoft.Network/applicationGateways/backendAddressPools', applicationGatewayName, 'appGatewayBackendPool')
-          }
-          backendHttpSettings: {
-            id: resourceId('Microsoft.Network/applicationGateways/backendHttpSettingsCollection', applicationGatewayName, 'https')
+          redirectConfiguration: {
+            id: resourceId('Microsoft.Network/applicationGateways/redirectConfigurations', applicationGatewayName, 'http')
           }
         }
       } 
@@ -309,25 +295,26 @@ resource applicationGateway 'Microsoft.Network/applicationGateways@2020-06-01' =
             id: resourceId('Microsoft.Network/applicationGateways/httpListeners', applicationGatewayName, 'https')
           }
           backendAddressPool: {
-            id: resourceId('Microsoft.Network/applicationGateways/backendAddressPools', applicationGatewayName, 'appGatewayBackendPool')
+            id: resourceId('Microsoft.Network/applicationGateways/backendAddressPools', applicationGatewayName, 'apiPool')
           }
           backendHttpSettings: {
-            id: resourceId('Microsoft.Network/applicationGateways/backendHttpSettingsCollection', applicationGatewayName, 'https')
+            id: resourceId('Microsoft.Network/applicationGateways/backendHttpSettingsCollection', applicationGatewayName, 'http')
           }
         }
       }      
     ]
     probes: [
       {
-        name: 'appGatewayProbe'
+        name: 'apiProbe'
         properties: {
-          protocol: 'Https'
-          path: '/status-0123456789abcdef'
+          protocol: 'Http'
+          host: apiFqdn
+          path: apiProbePath
           interval: 30
           timeout: 30
           unhealthyThreshold: 3
           minServers: 1
-          pickHostNameFromBackendHttpSettings: true
+          pickHostNameFromBackendHttpSettings: false
           match: {
             statusCodes: [
               '200-399'
@@ -365,200 +352,6 @@ resource appgwDiagnosticSettings 'Microsoft.Insights/diagnosticSettings@2021-05-
       {
         category: 'AllMetrics'
         enabled: true
-      }
-    ]
-  }
-}
-
-#disable-next-line BCP081
-resource apiManagementService 'Microsoft.ApiManagement/service@2024-06-01-preview' = {
-  name: apiManagementServiceName
-  location: location
-  sku: {
-    name: apimSku
-    capacity: apimSkuCount
-  }
-  identity: {
-    type: 'UserAssigned'
-    userAssignedIdentities: {
-      '${apimMsi.id}': {}
-    }
-  }
-  properties: {
-    publisherEmail: apimPublisherEmail
-    publisherName: apimPublisherName
-    virtualNetworkConfiguration: {
-      subnetResourceId: '${vnet.id}/subnets/subnet-apim'
-    }
-    virtualNetworkType: 'Internal'
-    hostnameConfigurations: [
-      {
-          type: 'Proxy'
-          hostName: apimGwHostName
-          defaultSslBinding: true
-          negotiateClientCertificate: false
-          certificateSource: 'KeyVault'
-          identityClientId: apimMsi.properties.clientId
-          keyVaultId:  '${keyVault.properties.vaultUri}secrets/${apimSslCertSecretName}'
-      }
-      {
-          type: 'Management'
-          hostName: apimMgmtHostName
-          certificateSource: 'KeyVault'
-          identityClientId: apimMsi.properties.clientId
-          keyVaultId:  '${keyVault.properties.vaultUri}secrets/${apimSslCertSecretName}'
-      }
-    ]
-  }
-}
-
-resource apimwDiagnosticSettings 'Microsoft.Insights/diagnosticSettings@2021-05-01-preview' = {
-  name: 'Log Analytics'
-  scope: apiManagementService
-  properties: {
-    workspaceId: logAnalytics.id
-    logs: [
-      {
-        category: 'GatewayLogs'
-        enabled: true
-      }
-      {
-        category: 'WebSocketConnectionLogs'
-        enabled: true
-      }
-      {
-        category: 'DeveloperPortalAuditLogs'
-        enabled: true
-      }
-    ]
-    metrics: [
-      {
-        category: 'AllMetrics'
-        enabled: true
-      }
-    ]
-  }
-}
-
-#disable-next-line BCP081
-resource httpApi 'Microsoft.ApiManagement/service/apis@2024-06-01-preview' = {
-  parent: apiManagementService
-  name: 'http'
-  properties: {
-    apiType: 'http'
-    displayName: 'http'
-    apiRevision: '1'
-    isCurrent: true
-    path: ''
-    protocols: [
-      'https'
-    ]
-    serviceUrl: serviceUrl
-    type: 'http'
-    subscriptionRequired: false
-  }
-}
-
-#disable-next-line BCP081
-resource httpApiGet 'Microsoft.ApiManagement/service/apis/operations@2024-06-01-preview' = {
-  parent: httpApi
-  name: 'httpApiGetDeploy'
-  properties: {
-    displayName: 'Get'
-    method: 'GET'
-    urlTemplate: '/*'
-    request: {
-      queryParameters: []
-    }
-    responses: [
-      {
-        statusCode: 200
-        description: 'Success'
-        representations: []
-      }
-    ]
-  }
-}
-
-#disable-next-line BCP081
-resource httpApiPost 'Microsoft.ApiManagement/service/apis/operations@2024-06-01-preview' = {
-  parent: httpApi
-  name: 'httpApiPostDeploy'
-  properties: {
-    displayName: 'Post'
-    method: 'POST'
-    urlTemplate: '/*'
-    request: {
-      queryParameters: []
-    }
-    responses: [
-      {
-        statusCode: 200
-        description: 'Success'
-        representations: []
-      }
-    ]
-  }
-}
-
-#disable-next-line BCP081
-resource httpApiPut 'Microsoft.ApiManagement/service/apis/operations@2024-06-01-preview' = {
-  parent: httpApi
-  name: 'httpApiPutDeploy'
-  properties: {
-    displayName: 'Put'
-    method: 'PUT'
-    urlTemplate: '/*'
-    request: {
-      queryParameters: []
-    }
-    responses: [
-      {
-        statusCode: 200
-        description: 'Success'
-        representations: []
-      }
-    ]
-  }
-}
-
-#disable-next-line BCP081
-resource httpApiDelete 'Microsoft.ApiManagement/service/apis/operations@2024-06-01-preview' = {
-  parent: httpApi
-  name: 'httpApiDeleteDeploy'
-  properties: {
-    displayName: 'Delete'
-    method: 'DELETE'
-    urlTemplate: '/*'
-    request: {
-      queryParameters: []
-    }
-    responses: [
-      {
-        statusCode: 200
-        description: 'Success'
-        representations: []
-      }
-    ]
-  }
-}
-
-#disable-next-line BCP081
-resource httpApiOptions 'Microsoft.ApiManagement/service/apis/operations@2024-06-01-preview' = {
-  parent: httpApi
-  name: 'httpApiOptionsDeploy'
-  properties: {
-    displayName: 'Options'
-    method: 'OPTIONS'
-    urlTemplate: '/*'
-    request: {
-      queryParameters: []
-    }
-    responses: [
-      {
-        statusCode: 200
-        description: 'Success'
-        representations: []
       }
     ]
   }
@@ -668,19 +461,6 @@ resource aksDiagnosticSettings 'Microsoft.Insights/diagnosticSettings@2021-05-01
 
 resource privateDnsZone 'Microsoft.Network/privateDnsZones@2024-06-01' existing = {
   name: backendDnsZoneName
-}
-
-resource apimRecord 'Microsoft.Network/privateDnsZones/A@2024-06-01' = {
-  parent: privateDnsZone
-  name: 'apim-gw'
-  properties: {
-    ttl: 300
-    aRecords: [
-      {
-        ipv4Address: apiManagementService.properties.privateIPAddresses[0]
-      }
-    ]
-  }
 }
 
 resource privateDnsZoneVnetLink 'Microsoft.Network/privateDnsZones/virtualNetworkLinks@2024-06-01' = {

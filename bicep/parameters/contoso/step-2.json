@@ -1,106 +1,76 @@
 {
-    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
-    "contentVersion": "1.0.0.0",
-    "parameters": {
-      "location": {
-        "value": "eastus2"
-      },
-      "virtualNetworkName": {
-        "value": "vnet-omniverse-01"
-      },
-      "aksDnsPrefix" : {
-        "value": "aks-omniverse-01"
-      },
-      "agentVMSize" : {
-        "value": "standard_d2s_v3"
-      },
-      "cacheVMSize" : {
-        "value": "Standard_D8s_v3"
-      },
-      "gpuVMSize" : {
-        "value": "Standard_NV36ads_A10_v5"
-      },
-      "agentPoolName": {
-        "value":  "agentpool"
-      },
-      "cachePoolName": {
-        "value":  "cachepool"
-      },
-      "gpuPoolName": {
-        "value":  "gpupool"
-      },
-      "apimPublisherName" : {
-        "value": "John Doe"
-      },
-      "apimPublisherEmail" : {
-        "value": "john.doe@contoso.com"
-      },
-      "appGwHostName": {
-        "value": "appgw.frontend.contoso-omniverse.com"
-      },      
-      "apimGwHostName": {
-        "value": "apim-gw.backend.contoso-omniverse.com"
-      },
-      "apimMgmtHostName": {
-        "value": "apim-mgmt.backend.contoso-omniverse.com"
-      },  
-      "serviceUrl": {
-        "value": "http://api.backend.contoso-omniverse.com"
-      }, 
-      "apiManagementServiceName": {
-        "value": "apim-omniverse-01"
-      }, 
-      "applicationGatewayName": {
-        "value": "appgw-omniverse-01"
-      }, 
-      "keyVaultName": {
-        "value": "kv-omniverse-01"
-      },       
-      "aksClusterName": {
-        "value": "aks-omniverse-01"
-      }, 
-      "aksRbacAssignments" : {
-        "value": [
-          {
-            "principalId": "529b2a7a-04d8-4b2b-8ec2-a95481670d47",
-            "principalType": "User",
-            "roleDefinitionId": "b1ff04bb-8a4e-4dc4-8eb5-8693973ce19b"
-          },
-          {
-            "principalId": "529b2a7a-04d8-4b2b-8ec2-a95481670d47",
-            "principalType": "User",
-            "roleDefinitionId": "3498e952-d568-435e-9b2c-8d77e338d7f7"
-          }
-        ]
-      },
-      "appGwSslCertName" : {
-        "value": "frontend.contoso-omniverse.com"
-      },
-      "apimSslCertName" : {
-        "value": "backend.contoso-omniverse.com"
-      },
-      "backendDnsZoneName": {
-        "value": "backend.contoso-omniverse.com"
-      },
-      "frontendDnsZoneName": {
-        "value": "frontend.contoso-omniverse.com"
-      },      
-      "logAnalyticsName": {
-        "value": "log-omniverse-01"
-      },
-      "acrName": {
-        "value": "acromniverse01"
-      },
-      "staticWebAppName": {
-        "value": "swa-omniverse-01"
-      },
-      "webAppCNAME": {
-        "value": "webapp"
-      },
-      "externalDnsManagedIdentityName": {
-        "value": "msi-externaldns"
-      }
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "location": {
+      "value": "eastus2"
+    },
+    "virtualNetworkName": {
+      "value": "vnet-omni-mbecker"
+    },
+    "aksDnsPrefix" : {
+      "value": "omni-mbecker"
+    },
+    "agentVMSize" : {
+      "value": "standard_d2s_v3"
+    },
+    "cacheVMSize" : {
+      "value": "Standard_D8s_v3"
+    },
+    "gpuVMSize" : {
+      "value": "Standard_NV6ads_A10_v5"
+    },
+    "agentPoolName": {
+      "value":  "agentpool"
+    },
+    "cachePoolName": {
+      "value":  "cachepool"
+    },
+    "gpuPoolName": {
+      "value":  "gpupool"
+    },
+    "appGwHostName": {
+      "value": "appgw.omniverse-frontend.beckerobrien.com"
+    },      
+    "apiFqdn" : {
+      "value": "api.omniverse-backend.beckerobrien.com"
+    },
+    "applicationGatewayName": {
+      "value": "appgw-omni-mbecker"
+    }, 
+    "keyVaultName": {
+      "value": "kv-omni-mbecker"
+    },       
+    "aksClusterName": {
+      "value": "aks-omni-mbecker"
+    }, 
+    "aksRbacAssignments" : {
+      "value": []
+    },
+    "appGwSslCertName" : {
+      "value": "omniverse-frontend.beckerobrien.com"
+    },
+    "backendDnsZoneName": {
+      "value": "omniverse-backend.beckerobrien.com"
+    },
+    "frontendDnsZoneName": {
+      "value": "omniverse-frontend.beckerobrien.com"
+    },      
+    "logAnalyticsName": {
+      "value": "log-omni-mbecker"
+    },
+    "acrName": {
+      "value": "acromnimbecker"
+    },
+    "staticWebAppName": {
+      "value": "swa-omni-mbecker"
+    },
+    "webAppCNAME": {
+      "value": "webapp"
+    },
+    "externalDnsManagedIdentityName": {
+      "value": "msi-externaldns"
     }
   }
-  
-  
+}
+
